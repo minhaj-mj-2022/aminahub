@@ -17,16 +17,16 @@ class _ScreenBodyState extends State<ScreenBody> {
   List<Map<String, String>> splashData = [
     {
       "text": "Welcome to Tokoto, Let’s shop!",
-      "image": "assets/images/splash_1.png"
+      "image": "assets/icons/demo_icon.png"
     },
     {
       "text":
       "We help people conect with store \naround United State of America",
-      "image": "assets/images/splash_2.png"
+      "image": "assets/icons/demo_icon.png"
     },
     {
       "text": "We show the easy way to shop. \nJust stay at home with us",
-      "image": "assets/images/splash_3.png"
+      "image": "assets/icons/demo_icon.png"
     },
   ];
   @override
@@ -52,39 +52,39 @@ class _ScreenBodyState extends State<ScreenBody> {
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: getProportionateScreenWidth(20)),
                 child: Column(
                   children: <Widget>[
-                    Spacer(),
+                    const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         splashData.length,
                             (index) => AnimatedContainer(
                           duration: kAnimationDuration,
-                          margin: EdgeInsets.only(right: 5),
+                          margin: const EdgeInsets.only(right: 5),
                           height: 6,
-                          width: currentPage == index ? 20 : 6,
+                          width: currentPage == index ? 60 : 24,
                           decoration: BoxDecoration(
                             color: currentPage == index
                                 ? kPrimaryColor
-                                : Color(0xFFD8D8D8),
+                                : const Color(0xFFD8D8D8),
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ),
                       ),
                     ),
-                    Spacer(flex: 3),
-                    DefaultButton(
-                      text: "Continue",
-                      press: () {
-                        //Navigator.pushNamed(context, HomeScreen.routeName);
-                      },
-                    ),
-                    Spacer(),
+                    const Spacer(flex: 1),
+                    // DefaultButton(
+                    //   text: "Continue",
+                    //   press: () {
+                    //     //Navigator.pushNamed(context, HomeScreen.routeName);
+                    //   },
+                    // ),
+                   // const Spacer(),
                   ],
                 ),
               ),

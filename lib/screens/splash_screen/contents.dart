@@ -1,5 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import '../../constants.dart';
+import 'package:flutter/material.dart';
 import '../../size_config.dart';
 
 class SplashContent extends StatelessWidget {
@@ -15,23 +14,19 @@ class SplashContent extends StatelessWidget {
     return Column(
       children: <Widget>[
         const Spacer(),
-        Text(
-          "Amena",
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(36),
-            color: kPrimaryColor,
-            fontWeight: FontWeight.bold,
-          ),
+        Image.asset(
+          image!,
+          height: getProportionateScreenHeight(64),
+          width: getProportionateScreenWidth(64),
         ),
+        //const Spacer(flex: 6),
         Text(
           text!,
           textAlign: TextAlign.center,
-        ),
-        const Spacer(flex: 2),
-        Image.asset(
-          image!,
-          height: getProportionateScreenHeight(265),
-          width: getProportionateScreenWidth(235),
+          style: const TextStyle(
+            fontSize: 30,
+            color: Colors.black,
+          ),
         ),
       ],
     );
