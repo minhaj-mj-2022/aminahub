@@ -1,32 +1,32 @@
+
+import 'package:aminahub/screens/home/home_screen.dart';
+import 'package:aminahub/screens/splash/components/splash_Content.dart';
 import 'package:flutter/cupertino.dart';
-import '../../components/default_btn.dart';
-import '../../constants.dart';
-import '../../size_config.dart';
-import 'contents.dart';
+import '../../../components/default_btn.dart';
+import '../../../constants.dart';
+import '../../../size_config.dart';
 
 
-class ScreenBody extends StatefulWidget {
-  const ScreenBody({super.key});
-
+class Body extends StatefulWidget {
   @override
-  _ScreenBodyState createState() => _ScreenBodyState();
+  _BodyState createState() => _BodyState();
 }
 
-class _ScreenBodyState extends State<ScreenBody> {
+class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
       "text": "Welcome to Tokoto, Let’s shop!",
-      "image": "assets/icons/demo_icon.png"
+      "image": "assets/images/splash_1.png"
     },
     {
       "text":
       "We help people conect with store \naround United State of America",
-      "image": "assets/icons/demo_icon.png"
+      "image": "assets/images/splash_2.png"
     },
     {
       "text": "We show the easy way to shop. \nJust stay at home with us",
-      "image": "assets/icons/demo_icon.png"
+      "image": "assets/images/splash_3.png"
     },
   ];
   @override
@@ -52,39 +52,41 @@ class _ScreenBodyState extends State<ScreenBody> {
               ),
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: getProportionateScreenWidth(20)),
                 child: Column(
                   children: <Widget>[
-                    const Spacer(),
+                    Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         splashData.length,
                             (index) => AnimatedContainer(
                           duration: kAnimationDuration,
-                          margin: const EdgeInsets.only(right: 5),
+                          margin: EdgeInsets.only(right: 5),
                           height: 6,
-                          width: currentPage == index ? 60 : 24,
+                          width: currentPage == index ? 20 : 6,
                           decoration: BoxDecoration(
                             color: currentPage == index
                                 ? kPrimaryColor
-                                : const Color(0xFFD8D8D8),
+                                : Color(0xFFD8D8D8),
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ),
                       ),
                     ),
-                    const Spacer(flex: 1),
-                    // DefaultButton(
-                    //   text: "Continue",
-                    //   press: () {
-                    //     //Navigator.pushNamed(context, HomeScreen.routeName);
-                    //   },
-                    // ),
-                   // const Spacer(),
+                    Spacer(flex: 3),
+                    DefaultButton(
+                      text: "Continue",
+                      press: () {
+                        //Navigator.pushNamed(context, SignInScreen.routeName);
+                        //Navigator.pushNamed(context, SignInScreen.routeName);
+                        Navigator.pushNamed(context, HomeScreen.routeName);
+                      },
+                    ),
+                    Spacer(),
                   ],
                 ),
               ),

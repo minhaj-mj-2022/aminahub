@@ -1,12 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-
 import 'constants.dart';
 
 class AppTheme {
   static ThemeData lightTheme(BuildContext context) {
     return ThemeData(
-      scaffoldBackgroundColor: const Color(0xFF5E3CC4),
+      scaffoldBackgroundColor: Colors.white,
       fontFamily: "Muli",
       appBarTheme: const AppBarTheme(
           color: Colors.white,
@@ -30,7 +29,7 @@ class AppTheme {
   }
 }
 
-OutlineInputBorder outlineInputBorder =  const OutlineInputBorder(
+OutlineInputBorder outlineInputBorder =  OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(28)),
   borderSide: BorderSide(color: kTextColor),
   gapPadding: 10,

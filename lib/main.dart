@@ -1,14 +1,14 @@
 import 'package:aminahub/routes.dart';
-import 'package:aminahub/screens/splash_screen/splash_screen.dart';
+import 'package:aminahub/screens/splash/splash_screen.dart';
 import 'package:aminahub/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key}); 
 
   // This widget is the root of your application.
   @override
