@@ -1,3 +1,4 @@
+import 'package:aminahub/size_config.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import '../../components/default_btn.dart';
@@ -5,10 +6,10 @@ import '../home/home_screen.dart';
 
 class SelectLocation extends StatefulWidget {
   String address;
-  SelectLocation(this.address);
+  SelectLocation(this.address, {super.key});
 
   @override
-  _SelectLocationState createState() => _SelectLocationState(this.address);
+  _SelectLocationState createState() => _SelectLocationState(address);
 }
 
 class _SelectLocationState extends State<SelectLocation> {
@@ -33,10 +34,15 @@ class _SelectLocationState extends State<SelectLocation> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment:   CrossAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/images/aminahub.png',
+                height: 30,
+            ),
+            SizedBox(height: getProportionateScreenWidth(35)),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

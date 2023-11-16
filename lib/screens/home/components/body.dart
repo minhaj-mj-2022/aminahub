@@ -22,6 +22,11 @@ class _HomeBodyState extends State<HomeBody> {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            Image.asset(
+              'assets/images/aminahub.png',
+                height: 30,
+            ),
+            SizedBox(height: getProportionateScreenWidth(35)),
             const HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(15)),
             AdsCategories(),

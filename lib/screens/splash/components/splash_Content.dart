@@ -1,8 +1,8 @@
 import 'package:easy_rich_text/easy_rich_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../size_config.dart';
 
+//test git
 class SplashContent extends StatelessWidget {
   const SplashContent({
     Key? key,

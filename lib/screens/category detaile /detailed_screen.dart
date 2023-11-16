@@ -25,10 +25,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         title: Text(widget.product.title),
       ),
       body: SingleChildScrollView(
+        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Image.asset(
+              'assets/images/aminahub.png',
+                height: 30,
+            ),
+            SizedBox(height: getProportionateScreenWidth(15)),
             CarouselSlider(
               items: widget.product.images.map((image) {
                 return Image.asset(image);

@@ -39,6 +39,7 @@ class ProductCardCategory extends StatelessWidget {
 
   Widget buildProductCard(Product product) {
     return Container(
+
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
