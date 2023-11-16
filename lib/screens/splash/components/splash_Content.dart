@@ -22,17 +22,6 @@ class SplashContent extends StatelessWidget {
           height: getProportionateScreenHeight(60),
           width: getProportionateScreenWidth(190),
         ),
-        // SizedBox(
-        //     width: 200,
-        //     child: Text(
-        //     text!,
-        //     textAlign: TextAlign.left,
-        //     style: const TextStyle(
-        //       fontSize: 28,
-        //       fontWeight: FontWeight.bold
-        //     ),
-        //   ),
-        // ),
         SizedBox(
             width: 200,
             child: EasyRichText(
