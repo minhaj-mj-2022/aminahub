@@ -6,14 +6,14 @@ import '../detailed_screen.dart';
 class ProductCardCategory extends StatelessWidget {
   final List<Product> products;
 
-  ProductCardCategory(this.products);
+  const ProductCardCategory(this.products, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 0.67,
           crossAxisSpacing: 15,
@@ -39,11 +39,11 @@ class ProductCardCategory extends StatelessWidget {
 
   Widget buildProductCard(Product product) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             spreadRadius: 5,
@@ -62,19 +62,19 @@ class ProductCardCategory extends StatelessWidget {
             product.title,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "\$${product.price}",
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.green,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

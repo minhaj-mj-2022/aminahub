@@ -1,19 +1,28 @@
+import 'package:aminahub/models/Products.dart';
 import 'package:aminahub/size_config.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:readmore/readmore.dart';
-import '../../models/Products.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatefulWidget {
   final Product product;
 
-  ProductDetailsScreen(this.product);
+  const ProductDetailsScreen(this.product, {super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  int _currentImageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(product.title),
+        title: Text(widget.product.title),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -21,26 +30,43 @@ class ProductDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             CarouselSlider(
-              items: product.images.map((image) {
+              items: widget.product.images.map((image) {
                 return Image.asset(image);
               }).toList(),
               options: CarouselOptions(
                 height: getProportionateScreenHeight(300),
                 enlargeCenterPage: true,
                 autoPlay: true,
-                aspectRatio: 1/1,
+                aspectRatio: 1 / 1,
                 enableInfiniteScroll: false,
-                autoPlayInterval: Duration(seconds: 3),
+                autoPlayInterval: const Duration(seconds: 3),
                 enlargeFactor: 0.1,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _currentImageIndex = index;
+                  });
+                },
               ),
             ),
-            SizedBox(height: 20), // Add some spacing
+            const SizedBox(height: 16),
+            DotsIndicator(
+              dotsCount: widget.product.images.length,
+              position: _currentImageIndex,
+              decorator: DotsDecorator(
+                activeColor: Colors.blue,
+                activeSize: const Size(18.0, 9.0),
+                activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20), // Add some spacing
             Container(
               padding: EdgeInsets.only(left: getProportionateScreenWidth(25), right: 30, bottom: getProportionateScreenWidth(25)),
               child: Column(
                 children: <Widget>[
                   Text(
-                    product.title,
+                    widget.product.title,
                     style: const TextStyle(
                       fontSize: 24,
                       color: Colors.black,
@@ -49,7 +75,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: getProportionateScreenHeight(10),),
                   Text(
-                    "\$${product.price}",
+                    "\$${widget.product.price}",
                     textAlign: TextAlign.justify,
                     style: const TextStyle(
                       fontSize: 22,
@@ -58,11 +84,11 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: getProportionateScreenHeight(5),),
-                  Divider(
+                  const Divider(
                     thickness: 5,
                   ),
                   SizedBox(height: getProportionateScreenHeight(10),),
-                  Text(
+                  const Text(
                     "Descriptions",
                     style: TextStyle(
                       fontSize: 18,
@@ -71,9 +97,9 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   ReadMoreText(
-                    product.description,
+                    widget.product.description,
                     textAlign: TextAlign.justify,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16
                     ),
@@ -81,17 +107,17 @@ class ProductDetailsScreen extends StatelessWidget {
                     trimMode: TrimMode.Line,
                     trimCollapsedText: 'Show more',
                     trimExpandedText: 'Show less',
-                    moreStyle: TextStyle(
+                    moreStyle: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.blueAccent
                     ),
                   ),
                   SizedBox(height: getProportionateScreenHeight(5),),
-                  Divider(
+                  const Divider(
                     thickness: 5,
                   ),
-                  Text(
+                  const Text(
                     "Contact Info.",
                     style: TextStyle(
                       fontSize: 18,
@@ -100,12 +126,13 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    product.contactInfo,
-                    style: TextStyle(
+                    widget.product.contactInfo,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: Colors.black,
                     ),
                   ),
+                  SizedBox(height: getProportionateScreenHeight(5),),
                 ],
               ),
             ),

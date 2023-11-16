@@ -1,7 +1,5 @@
 
-import 'package:aminahub/screens/cart/cart_screen.dart';
 import 'package:aminahub/screens/complete_profile/complete_profile_screen.dart';
-import 'package:aminahub/screens/details/details_screens.dart';
 import 'package:aminahub/screens/forgot_password/forgot_password_screen.dart';
 import 'package:aminahub/screens/home/home_screen.dart';
 import 'package:aminahub/screens/login_success/login_success_screen.dart';
@@ -21,7 +19,5 @@ final Map<String, WidgetBuilder> routes = {
   CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),
   OtpScreen.routeName: (context) => OtpScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
-  DetailsScreen.routeName: (context) => DetailsScreen(),
-  CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
 };

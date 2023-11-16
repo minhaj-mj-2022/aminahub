@@ -2,6 +2,7 @@
 import 'package:aminahub/screens/home/home_screen.dart';
 import 'package:aminahub/screens/splash/components/splash_Content.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../../../components/default_btn.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -16,82 +17,86 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "text": "Welcome to Tokoto, Let’s shop!",
+      "text": "is the place \nof all the needs \nin One stop \ndestinations...",
       "image": "assets/images/splash_1.png"
     },
     {
       "text":
-      "We help people conect with store \naround United State of America",
+      "with expart \nservice professionals...\n",
       "image": "assets/images/splash_2.png"
     },
     {
-      "text": "We show the easy way to shop. \nJust stay at home with us",
+      "text": "where user \nget their \nneeds fullfilled\n and delited.",
       "image": "assets/images/splash_3.png"
     },
   ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: PageView.builder(
-                onPageChanged: (value) {
-                  setState(() {
-                    currentPage = value;
-                  });
-                },
-                itemCount: splashData.length,
-                itemBuilder: (context, index) => SplashContent(
-                  image: splashData[index]["image"],
-                  text: splashData[index]['text'],
+      child: Container(
+        color: const Color(0xfff5e3cc4),
+        child: SizedBox(
+          //width: double.infinity,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: PageView.builder(
+                  onPageChanged: (value) {
+                    setState(() {
+                      currentPage = value;
+                    });
+                  },
+                  itemCount: splashData.length,
+                  itemBuilder: (context, index) => SplashContent(
+                    image: splashData[index]["image"],
+                    text: splashData[index]['text'],
+                    logo: 'assets/images/aminahub.png'
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
-                child: Column(
-                  children: <Widget>[
-                    Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        splashData.length,
-                            (index) => AnimatedContainer(
-                          duration: kAnimationDuration,
-                          margin: EdgeInsets.only(right: 5),
-                          height: 6,
-                          width: currentPage == index ? 20 : 6,
-                          decoration: BoxDecoration(
-                            color: currentPage == index
-                                ? kPrimaryColor
-                                : Color(0xFFD8D8D8),
-                            borderRadius: BorderRadius.circular(3),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getProportionateScreenWidth(20)),
+                  child: Column(
+                    children: <Widget>[
+                      const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          splashData.length,
+                              (index) => AnimatedContainer(
+                            duration: kAnimationDuration,
+                            margin: const EdgeInsets.only(right: 6),
+                            height: 8,
+                            width: currentPage == index ? 30 : 9,
+                            decoration: BoxDecoration(
+                              color: currentPage == index
+                                  ? kPrimaryColor
+                                  : const Color(0xFFD8D8D8),
+                              borderRadius: BorderRadius.circular(3),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Spacer(flex: 3),
-                    DefaultButton(
-                      text: "Continue",
-                      press: () {
-                        //Navigator.pushNamed(context, SignInScreen.routeName);
-                        //Navigator.pushNamed(context, SignInScreen.routeName);
-                        Navigator.pushNamed(context, HomeScreen.routeName);
-                      },
-                    ),
-                    Spacer(),
-                  ],
+                      const Spacer(flex: 3),
+                      DefaultButton(
+                        text: "Continue",
+                        press: () {
+                          //Navigator.pushNamed(context, SignInScreen.routeName);
+                          //Navigator.pushNamed(context, SignInScreen.routeName);
+                          Navigator.pushNamed(context, HomeScreen.routeName);
+                        },
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

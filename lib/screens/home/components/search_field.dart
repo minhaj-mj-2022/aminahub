@@ -49,13 +49,10 @@ class SearchField extends StatefulWidget {
 
 class _SearchFieldState extends State<SearchField> {
   final List<String> items = [
-    'Education and Training',
-    'Home Services',
-    'Business Services',
-    'Properties - Buy,Rent, Roommate',
-    'IT Training',
-    'Health and Wellness',
-    'Events'
+    'Events','Roommates','Rentals','Property',
+    'It Training','Jobs','Cars','Buy/Sell',
+    'Car Services','Local Biz','Services','Classifieds',
+    'Travel','Lawyers',
   ];
   String query = '';
 

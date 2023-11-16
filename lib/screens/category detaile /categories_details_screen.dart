@@ -7,7 +7,7 @@ class CategoryDetails extends StatelessWidget {
   final String barTitle;
   //final List <Product> productCategory;
 
-  CategoryDetails(
+  const CategoryDetails(
       {Key? key,
         required this.barTitle,
         //this.productCategory,
@@ -19,7 +19,7 @@ class CategoryDetails extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           barTitle,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -28,7 +28,7 @@ class CategoryDetails extends StatelessWidget {
           onTap: () {
             Navigator.pushNamed(context, HomeScreen.routeName);
           },
-          child: Icon(Icons.arrow_back),
+          child: const Icon(Icons.arrow_back),
         ),
       ),
       body: Container(

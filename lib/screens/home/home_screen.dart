@@ -7,7 +7,7 @@ import '../../enums.dart';
 import '../selectLocation/select_city.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String routeName = "/home"; // Define the route name
+  static const String routeName = "/home";
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -50,14 +50,14 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         title: Text(
           currentCity,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
       body: HomeBody(),
-      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
+      bottomNavigationBar: const CustomBottomNavBar(selectedMenu: MenuState.home),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

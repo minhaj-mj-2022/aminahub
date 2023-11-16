@@ -1,5 +1,6 @@
+import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/cupertino.dart';
-import '../../../constants.dart';
+import 'package:flutter/material.dart';
 import '../../../size_config.dart';
 
 class SplashContent extends StatelessWidget {
@@ -7,31 +8,56 @@ class SplashContent extends StatelessWidget {
     Key? key,
     this.text,
     this.image,
+    this.logo,
   }) : super(key: key);
-  final String? text, image;
+  final String? text, image, logo;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         const Spacer(),
-        Text(
-          "Amena",
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(36),
-            color: kPrimaryColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          text!,
-          textAlign: TextAlign.center,
-        ),
-        const Spacer(flex: 2),
         Image.asset(
-          image!,
-          height: getProportionateScreenHeight(265),
-          width: getProportionateScreenWidth(235),
+          logo!,
+          height: getProportionateScreenHeight(60),
+          width: getProportionateScreenWidth(190),
+        ),
+        // SizedBox(
+        //     width: 200,
+        //     child: Text(
+        //     text!,
+        //     textAlign: TextAlign.left,
+        //     style: const TextStyle(
+        //       fontSize: 28,
+        //       fontWeight: FontWeight.bold
+        //     ),
+        //   ),
+        // ),
+        SizedBox(
+            width: 200,
+            child: EasyRichText(
+                  text!,
+                  patternList: [
+                    EasyRichTextPattern(
+                      targetString: ['One', 'stop', 'destinations...',
+                      'service','professionals...',
+                      'needs fullfilled'],
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                        color: Colors.white,
+                        ),
+                    ),
+                    EasyRichTextPattern(
+                      targetString: ['is the place', 'of all the needs', 'in',
+                      'with expart','where user','get their','needs fullfilled','and delited.'],
+                      style: const TextStyle(
+                        fontSize: 28,
+                        color: Colors.white,
+                        ),
+                    )
+                  ],
+                ),
         ),
       ],
     );
