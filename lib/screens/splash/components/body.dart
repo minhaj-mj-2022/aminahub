@@ -1,4 +1,5 @@
 
+import 'package:aminahub/database/data_fetch.dart';
 import 'package:aminahub/screens/home/home_screen.dart';
 import 'package:aminahub/screens/splash/components/splash_Content.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,16 +19,13 @@ class _BodyState extends State<Body> {
   List<Map<String, String>> splashData = [
     {
       "text": "is the place \nof all the needs \nin One stop \ndestinations...",
-      "image": "assets/images/splash_1.png"
     },
     {
       "text":
       "with expart \nservice professionals...\n",
-      "image": "assets/images/splash_2.png"
     },
     {
       "text": "where user \nget their \nneeds fullfilled\n and delited.",
-      "image": "assets/images/splash_3.png"
     },
   ];
   @override
@@ -49,9 +47,8 @@ class _BodyState extends State<Body> {
                   },
                   itemCount: splashData.length,
                   itemBuilder: (context, index) => SplashContent(
-                    image: splashData[index]["image"],
                     text: splashData[index]['text'],
-                    logo: 'assets/images/aminahub.png'
+                    logo: 'assets/images/aminahub_splash_screen_logo.png'
                   ),
                 ),
               ),
@@ -88,6 +85,8 @@ class _BodyState extends State<Body> {
                           //Navigator.pushNamed(context, SignInScreen.routeName);
                           //Navigator.pushNamed(context, SignInScreen.routeName);
                           Navigator.pushNamed(context, HomeScreen.routeName);
+                          //Navigator.pushNamed(context, DataFetchScreen.routeName);
+
                         },
                       ),
                       const Spacer(),
@@ -102,3 +101,5 @@ class _BodyState extends State<Body> {
     );
   }
 }
+
+

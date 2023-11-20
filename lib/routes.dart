@@ -1,4 +1,5 @@
 
+import 'package:aminahub/database/data_fetch.dart';
 import 'package:aminahub/screens/complete_profile/complete_profile_screen.dart';
 import 'package:aminahub/screens/forgot_password/forgot_password_screen.dart';
 import 'package:aminahub/screens/home/home_screen.dart';
@@ -20,4 +21,5 @@ final Map<String, WidgetBuilder> routes = {
   OtpScreen.routeName: (context) => OtpScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
+  DataFetchScreen.routeName: (context) => DataFetchScreen(),
 };

@@ -7,10 +7,9 @@ class SplashContent extends StatelessWidget {
   const SplashContent({
     Key? key,
     this.text,
-    this.image,
     this.logo,
   }) : super(key: key);
-  final String? text, image, logo;
+  final String? text, logo;
 
   @override
   Widget build(BuildContext context) {

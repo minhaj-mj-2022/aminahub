@@ -23,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _getLocation() async {
+    print("!!!!!!!!!!!hello~~~~~~~~~~~~~~~~~~~~~~");
+
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
