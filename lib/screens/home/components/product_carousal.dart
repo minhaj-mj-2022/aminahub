@@ -1,6 +1,5 @@
 import 'package:aminahub/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../../models/Products.dart';
 import '../../category detaile /detailed_screen.dart';
 
@@ -9,17 +8,18 @@ class ProductCarousal extends StatelessWidget {
 
   const ProductCarousal(this.products, {super.key});
 
-Widget build(BuildContext context) {
+@override
+  Widget build(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.all(10),
+    padding: const EdgeInsets.only(left: 6),
     child: SizedBox(
-      height: getProportionateScreenHeight(250),
+      height: getProportionateScreenHeight(282),
       width: SizeConfig.screenWidth,
       child: Stack(
         children: [
           ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 3, // Assuming you want to show 3 items
+            itemCount: 3,  
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
@@ -40,7 +40,6 @@ Widget build(BuildContext context) {
               icon: const Icon(Icons.arrow_forward_ios),
               color: Colors.blue,
               onPressed: () {
-                // Handle the right arrow button press if needed
               },
             ),
           ),
@@ -53,28 +52,29 @@ Widget build(BuildContext context) {
 
   Widget buildProductCard(Product product) {
     return Container(
-      width: 160,// Adjust the width as needed
-      margin: const EdgeInsets.only(right: 15), // Adjust the margin as needed
+      width: 160, 
+      margin: const EdgeInsets.only(right: 2), 
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         // color: const Color(0xFFE0F2F1),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 0,
-            blurRadius: 12,
-            offset: Offset(5, 12),
-            blurStyle: BlurStyle.outer
-          ),
-        ],
+        // boxShadow: const [
+        //   BoxShadow(
+        //     color: Colors.black12,
+        //     spreadRadius: 0,
+        //     blurRadius: 12,
+        //     offset: Offset(5, 12),
+        //     blurStyle: BlurStyle.outer
+        //   ),
+        // ],
       ),
       child: Column(
         children: [
           AspectRatio(
-            aspectRatio: 1.0,
+            aspectRatio: 0.75,
             child: Image.asset(product.images[0]),
           ),
+          const SizedBox(height: 2,),
           Text(
             product.title,
             maxLines: 2,
@@ -85,9 +85,9 @@ Widget build(BuildContext context) {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
                 "\$${product.price}",
@@ -97,9 +97,9 @@ Widget build(BuildContext context) {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SvgPicture.asset(
-                "assets/icons/Heart Icon_2.svg",
-              ),
+              // SvgPicture.asset(
+              //   "assets/icons/Heart Icon_2.svg",
+              // ),
             ],
           ),
         ],
@@ -107,3 +107,4 @@ Widget build(BuildContext context) {
     );
   }
 }
+

@@ -23,8 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _getLocation() async {
-    print("!!!!!!!!!!!hello~~~~~~~~~~~~~~~~~~~~~~");
-
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -61,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: HomeBody(),
       bottomNavigationBar: const CustomBottomNavBar(selectedMenu: MenuState.home),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFF80D0D9),
         onPressed: () {
           Navigator.push(
             context,
@@ -75,7 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           });
         },
-        child: const Icon(Icons.location_on),
+        child: const Icon(
+          Icons.location_on,
+          color: Color(0XFFFAAB37),
+          ),
       ),
     );
   }

@@ -32,11 +32,7 @@ class _HomeBodyState extends State<HomeBody> {
             AdsCategories(),
             SizedBox(height: getProportionateScreenWidth(20)),
             Padding(
-              padding: EdgeInsets.only(
-                top: getProportionateScreenHeight(20),
-                left: getProportionateScreenWidth(20),
-                right: getProportionateScreenWidth(20),
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: SectionTitle(title: "Special for you", press: () {
                 Navigator.pushReplacement(
                   context,
@@ -45,12 +41,9 @@ class _HomeBodyState extends State<HomeBody> {
               }),
             ),
             const SpecialOffers(),
+            SizedBox(height: getProportionateScreenWidth(20)),
             Padding(
-              padding: EdgeInsets.only(
-                  top: getProportionateScreenHeight(20),
-                left: getProportionateScreenWidth(20),
-                right: getProportionateScreenWidth(20),
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: SectionTitle(title: "Popular Products", press: () {
                 Navigator.pushReplacement(
                   context,
@@ -58,21 +51,19 @@ class _HomeBodyState extends State<HomeBody> {
                 );
               }),
             ),
-            SizedBox(height: getProportionateScreenWidth(20)),
+            SizedBox(height: getProportionateScreenWidth(10)),
             ProductCarousal(demoProducts),
+            SizedBox(height: getProportionateScreenWidth(15)),
             Padding(
-              padding: EdgeInsets.only(
-                top: getProportionateScreenHeight(20),
-                left: getProportionateScreenWidth(20),
-                right: getProportionateScreenWidth(20),
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 15),
               child: SectionTitle(title: "Best Deals", press: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (BuildContext context) => CategoryDetails(barTitle: 'Popular Products')),
+                  MaterialPageRoute(builder: (BuildContext context) => CategoryDetails(barTitle: 'Best Deals')),
                 );
               }),
             ),
+            SizedBox(height: getProportionateScreenWidth(10)),
             ProductCarousal(demoProducts),
           ],
         ),

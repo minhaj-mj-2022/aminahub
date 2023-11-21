@@ -1,3 +1,4 @@
+import 'package:aminahub/screens/home/components/section_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../size_config.dart';
@@ -7,17 +8,16 @@ class AdsCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/buySell.svg", "text": "buySell"},
-      {"icon": "assets/icons/homeservices.svg", "text": "homeservices"},
-      {"icon": "assets/icons/lawyer.svg", "text": "lawyer"},
-      {"icon": "assets/icons/roommates.svg", "text": "roommates"},
-      {"icon": "assets/icons/travel.svg", "text": "travel"},
-      {"icon": "assets/icons/ItTaining.svg", "text": "ItTaining"},
+      {"icon": "assets/icons/itTraining.svg", "text": "ItTaining"},
       {"icon": "assets/icons/rent.svg", "text": "rent"},
       {"icon": "assets/icons/services.svg", "text": "services"},
       {"icon": "assets/icons/property.svg", "text": "property"},
       {"icon": "assets/icons/event.svg", "text": "event"},
-
+      {"icon": "assets/icons/buySell.svg", "text": "buySell"},
+      {"icon": "assets/icons/homeServices.svg", "text": "homeservices"},
+      {"icon": "assets/icons/lawyer.svg", "text": "lawyer"},
+      {"icon": "assets/icons/roommates.svg", "text": "roommates"},
+      {"icon": "assets/icons/travel.svg", "text": "travel"},
     ];
 
     return Column(
@@ -25,13 +25,12 @@ class AdsCategories extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20), // Adjust the padding as needed
-          child: Text(
-            "Ads Categories",
-            style: TextStyle(
-              fontSize: getProportionateScreenWidth(18),
-              color: Colors.black,
-            ),
-          ),
+          child: SectionTitle(title: "Ads Category", press: () {
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(builder: (BuildContext context) => CategoryDetails(barTitle: 'Popular Products')),
+                // );
+              }),
         ),
         SizedBox(height: 15),
         SingleChildScrollView(
@@ -78,10 +77,10 @@ class CategoryCard extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.all(getProportionateScreenWidth(5)),
-              height: getProportionateScreenWidth(70),
-              width: getProportionateScreenWidth(70),
+              height: getProportionateScreenWidth(50),
+              width: getProportionateScreenWidth(50),
               decoration: BoxDecoration(
-                color: Color(0xFF84D0D9),
+                //color: Color(0xFF84D0D9),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: SvgPicture.asset(icon!),

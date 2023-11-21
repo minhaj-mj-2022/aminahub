@@ -25,6 +25,7 @@ List<Product> demoProducts = [
   Product(
     id: 1,
     images: [
+      "assets/images/car_rental_2.png",
       "assets/images/ps4_console_white_1.png",
       "assets/images/ps4_console_white_2.png",
       "assets/images/ps4_console_white_3.png",
@@ -44,6 +45,7 @@ List<Product> demoProducts = [
   Product(
     id: 2,
     images: [
+      "assets/images/car_rental.png",
       "assets/images/Image Popular Product 2.png",
     ],
     title: "Nike Sport White - Man Pant",
@@ -56,6 +58,7 @@ List<Product> demoProducts = [
   Product(
     id: 3,
     images: [
+      "assets/images/car_rental.png",
       "assets/images/glap.png",
     ],
     title: "Gloves XC Omega - Polygon Gloves XC Omega - PolygonGloves XC Omega - PolygonGloves XC Omega - PolygonGloves XC Omega - Polygon",
