@@ -32,7 +32,7 @@ class _HomeBodyState extends State<HomeBody> {
             AdsCategories(),
             SizedBox(height: getProportionateScreenWidth(20)),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SectionTitle(title: "Special for you", press: () {
                 Navigator.pushReplacement(
                   context,
@@ -43,7 +43,7 @@ class _HomeBodyState extends State<HomeBody> {
             const SpecialOffers(),
             SizedBox(height: getProportionateScreenWidth(20)),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SectionTitle(title: "Popular Products", press: () {
                 Navigator.pushReplacement(
                   context,
@@ -55,7 +55,7 @@ class _HomeBodyState extends State<HomeBody> {
             ProductCarousal(demoProducts),
             SizedBox(height: getProportionateScreenWidth(15)),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: SectionTitle(title: "Best Deals", press: () {
                 Navigator.pushReplacement(
                   context,

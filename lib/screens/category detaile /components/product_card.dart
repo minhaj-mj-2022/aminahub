@@ -11,13 +11,13 @@ class ProductCardCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(2),
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
-          childAspectRatio: 0.67,
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 15,
+          childAspectRatio: 0.57,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
         ),
         itemCount: products.length,
         itemBuilder: (BuildContext context, int index) {
@@ -40,9 +40,9 @@ class ProductCardCategory extends StatelessWidget {
   Widget buildProductCard(Product product) {
     return Container(
 
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
         color: Colors.white,
         boxShadow: const [
           BoxShadow(
@@ -56,7 +56,7 @@ class ProductCardCategory extends StatelessWidget {
       child: Column(
         children: [
           AspectRatio(
-            aspectRatio: 1.0,
+            aspectRatio: .75,
             child: Image.asset(product.images[0]),
           ),
           Text(
@@ -81,9 +81,9 @@ class ProductCardCategory extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SvgPicture.asset(
-                "assets/icons/Heart Icon_2.svg",
-              ),
+              // SvgPicture.asset(
+              //   "assets/icons/Heart Icon_2.svg",
+              // ),
             ],
           ),
         ],

@@ -3,6 +3,8 @@ import 'package:aminahub/size_config.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -25,33 +27,45 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         title: Text(widget.product.title),
       ),
       body: SingleChildScrollView(
-        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Image.asset(
               'assets/images/aminahub.png',
-                height: 30,
+              height: getProportionateScreenHeight(30),
             ),
             SizedBox(height: getProportionateScreenWidth(15)),
-            CarouselSlider(
-              items: widget.product.images.map((image) {
-                return Image.asset(image);
-              }).toList(),
-              options: CarouselOptions(
-                height: getProportionateScreenHeight(300),
-                enlargeCenterPage: true,
-                autoPlay: true,
-                aspectRatio: 1 / 1,
-                enableInfiniteScroll: false,
-                autoPlayInterval: const Duration(seconds: 3),
-                enlargeFactor: 0.1,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _currentImageIndex = index;
-                  });
-                },
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FullScreenImageView(
+                      images: widget.product.images,
+                      initialIndex: _currentImageIndex,
+                    ),
+                  ),
+                );
+              },
+              child: CarouselSlider(
+                items: widget.product.images.map((image) {
+                  return Image.asset(image);
+                }).toList(),
+                options: CarouselOptions(
+                  height: getProportionateScreenHeight(450),
+                  enlargeCenterPage: true,
+                  autoPlay: true,
+                  aspectRatio: 9/16,
+                  enableInfiniteScroll: false,
+                  autoPlayInterval: const Duration(seconds: 3),
+                  enlargeFactor: 0.1,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentImageIndex = index;
+                    });
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -66,7 +80,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 20), // Add some spacing
+            const SizedBox(height: 20),
             Container(
               padding: EdgeInsets.only(left: getProportionateScreenWidth(25), right: 30, bottom: getProportionateScreenWidth(25)),
               child: Column(
@@ -92,6 +106,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   SizedBox(height: getProportionateScreenHeight(5),),
                   const Divider(
                     thickness: 5,
+                    color: Color(0xFFFAAB37),
                   ),
                   SizedBox(height: getProportionateScreenHeight(10),),
                   const Text(
@@ -122,6 +137,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   SizedBox(height: getProportionateScreenHeight(5),),
                   const Divider(
                     thickness: 5,
+                    color: Color(0xFFFAAB37),
                   ),
                   const Text(
                     "Contact Info.",
@@ -144,6 +160,37 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class FullScreenImageView extends StatelessWidget {
+  final List<String> images;
+  final int initialIndex;
+
+  FullScreenImageView({required this.images, required this.initialIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: PhotoViewGallery.builder(
+        itemCount: images.length,
+        builder: (context, index) {
+          return PhotoViewGalleryPageOptions(
+            imageProvider: AssetImage(images[index]),
+            minScale: PhotoViewComputedScale.contained * 0.8,
+            maxScale: PhotoViewComputedScale.covered * 2,
+          );
+        },
+        scrollPhysics: BouncingScrollPhysics(),
+        backgroundDecoration: BoxDecoration(
+          color: Colors.black,
+        ),
+        pageController: PageController(initialPage: initialIndex),
+        onPageChanged: (index) {
+          // Handle page change if needed
+        },
       ),
     );
   }
