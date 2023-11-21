@@ -26,7 +26,7 @@ class _HomeBodyState extends State<HomeBody> {
               'assets/images/aminahub.png',
                 height: 30,
             ),
-            SizedBox(height: getProportionateScreenWidth(35)),
+            SizedBox(height: getProportionateScreenWidth(15)),
             const HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(15)),
             AdsCategories(),

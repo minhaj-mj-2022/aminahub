@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+//import 'package:flutter_svg/svg.dart';
 import '../../../models/Products.dart';
 import '../detailed_screen.dart';
 
@@ -36,10 +36,9 @@ class ProductCardCategory extends StatelessWidget {
       ),
     );
   }
-
+}
   Widget buildProductCard(Product product) {
     return Container(
-
       padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
@@ -90,5 +89,5 @@ class ProductCardCategory extends StatelessWidget {
       ),
     );
   }
-}
+
 
