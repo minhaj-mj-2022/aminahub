@@ -1,5 +1,6 @@
+import 'package:aminahub/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Add this import
+import 'package:firebase_auth/firebase_auth.dart'; 
 import '../../../components/custom_surfix_icon.dart';
 import '../../../components/default_btn.dart';
 import '../../../components/form_error.dart';
@@ -45,7 +46,8 @@ class _SignUpFormState extends State<SignUpForm> {
       );
 
       // If registration is successful, navigate to the complete profile screen
-      Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+      //Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+        Navigator.pushNamed(context, HomeScreen.routeName);
     } on FirebaseAuthException catch (e) {
       // Handle registration errors here
       if (e.code == 'weak-password') {
