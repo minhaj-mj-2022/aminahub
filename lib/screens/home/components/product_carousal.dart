@@ -1,6 +1,6 @@
 import 'package:aminahub/size_config.dart';
 import 'package:flutter/material.dart';
-import '../../../models/Products.dart';
+import '../../../models/clssified_ads.dart';
 import '../../category detaile /detailed_screen.dart';
 
 class ProductCarousal extends StatelessWidget {
@@ -19,7 +19,8 @@ class ProductCarousal extends StatelessWidget {
         children: [
           ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 3,  
+            itemCount: products.length,
+            //itemCount: 3,  
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
@@ -72,11 +73,11 @@ class ProductCarousal extends StatelessWidget {
         children: [
           AspectRatio(
             aspectRatio: 0.75,
-            child: Image.asset(product.images[0]),
+            child: Image.network(product.images[0]),
           ),
           const SizedBox(height: 2,),
           Text(
-            product.title,
+            product.heading,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(

@@ -5,6 +5,8 @@ import '../../../components/social_card.dart';
 import '../../../size_config.dart';
 
 class myBody extends StatelessWidget {
+  const myBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,12 +27,12 @@ class myBody extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
+                const Text(
                   "Sign in with your email and password  \nor continue with social media",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
-                SignForm(),
+                const SignForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -39,18 +41,10 @@ class myBody extends StatelessWidget {
                       icon: "assets/icons/google-icon.svg",
                       press: () {},
                     ),
-                    SocalCard(
-                      icon: "assets/icons/facebook-2.svg",
-                      press: () {},
-                    ),
-                    SocalCard(
-                      icon: "assets/icons/twitter.svg",
-                      press: () {},
-                    ),
                   ],
                 ),
-                SizedBox(height: getProportionateScreenHeight(20)),
-                NoAccountText(),
+                SizedBox(height: getProportionateScreenHeight(40)),
+                const NoAccountText(),
               ],
             ),
           ),

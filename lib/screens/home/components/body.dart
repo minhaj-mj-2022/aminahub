@@ -1,4 +1,4 @@
-import 'package:aminahub/models/Products.dart';
+import 'package:aminahub/models/clssified_ads.dart';
 import 'package:aminahub/screens/home/components/product_carousal.dart';
 import 'package:aminahub/screens/home/components/section_title.dart';
 import 'package:aminahub/screens/home/components/special_offers.dart';
@@ -52,7 +52,7 @@ class _HomeBodyState extends State<HomeBody> {
               }),
             ),
             SizedBox(height: getProportionateScreenWidth(10)),
-            ProductCarousal(demoProducts),
+            //ProductCarousal(demoProducts),
             SizedBox(height: getProportionateScreenWidth(15)),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -64,7 +64,22 @@ class _HomeBodyState extends State<HomeBody> {
               }),
             ),
             SizedBox(height: getProportionateScreenWidth(10)),
-            ProductCarousal(demoProducts),
+            FutureBuilder<List<Product>>(
+            future: ProductService().getProducts(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();  
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                List<Product> products = snapshot.data ?? [];
+                if (products.isEmpty) {
+                  return const Text('No products available.');
+                }
+                return ProductCarousal(products);
+              }
+            },
+          ),
           ],
         ),
       ),

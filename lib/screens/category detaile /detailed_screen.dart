@@ -1,4 +1,4 @@
-import 'package:aminahub/models/Products.dart';
+import 'package:aminahub/models/clssified_ads.dart';
 import 'package:aminahub/size_config.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,6 @@ class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen(this.product, {super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
 }
 
@@ -24,7 +23,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.product.title),
+        title: Text(widget.product.heading),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -50,7 +49,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               },
               child: CarouselSlider(
                 items: widget.product.images.map((image) {
-                  return Image.asset(image);
+                  return Image.network(image);
                 }).toList(),
                 options: CarouselOptions(
                   height: getProportionateScreenHeight(450),
@@ -59,7 +58,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   aspectRatio: 9/16,
                   enableInfiniteScroll: false,
                   autoPlayInterval: const Duration(seconds: 3),
-                  enlargeFactor: 0.1,
+                  enlargeFactor: 0.2,
                   onPageChanged: (index, reason) {
                     setState(() {
                       _currentImageIndex = index;
@@ -86,7 +85,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    widget.product.title,
+                    widget.product.heading,
                     style: const TextStyle(
                       fontSize: 24,
                       color: Colors.black,

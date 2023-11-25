@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_svg/svg.dart';
-import '../../../models/Products.dart';
+import '../../../models/clssified_ads.dart';
 import '../detailed_screen.dart';
 
 class ProductCardCategory extends StatelessWidget {
@@ -56,10 +56,10 @@ class ProductCardCategory extends StatelessWidget {
         children: [
           AspectRatio(
             aspectRatio: .75,
-            child: Image.asset(product.images[0]),
+            child: Image.network(product.images[0]),
           ),
           Text(
-            product.title,
+            product.heading,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(

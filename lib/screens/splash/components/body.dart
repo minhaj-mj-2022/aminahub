@@ -1,6 +1,5 @@
-
-import 'package:aminahub/database/data_fetch.dart';
 import 'package:aminahub/screens/home/home_screen.dart';
+import 'package:aminahub/screens/sign_in/sign_in_screen.dart';
 import 'package:aminahub/screens/splash/components/splash_Content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -84,8 +83,8 @@ class _BodyState extends State<Body> {
                         press: () {
                           //Navigator.pushNamed(context, SignInScreen.routeName);
                           //Navigator.pushNamed(context, SignInScreen.routeName);
-                          Navigator.pushNamed(context, HomeScreen.routeName);
-                          //Navigator.pushNamed(context, DataFetchScreen.routeName);
+                          //Navigator.pushNamed(context, HomeScreen.routeName);
+                          Navigator.pushNamed(context, SignInScreen.routeName);
 
                         },
                       ),

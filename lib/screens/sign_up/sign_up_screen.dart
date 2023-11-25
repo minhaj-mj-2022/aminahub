@@ -26,7 +26,7 @@ class SignUpScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 16),
                   Text("Register Account", style: headingStyle),
-                  Text(
+                  const Text(
                     "Complete your details or continue \nwith social media",
                     textAlign: TextAlign.center,
                   ),
@@ -54,7 +54,7 @@ class SignUpScreen extends StatelessWidget {
                   Text(
                     'By continuing your confirm that you agree \nwith our Term and Condition',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.caption,
+                    style: Theme.of(context).textTheme.bodySmall,
                   )
                 ],
               ),
