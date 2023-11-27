@@ -1,10 +1,8 @@
-import 'package:aminahub/screens/home/components/section_title.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../../../size_config.dart';
-import '../../category detaile /categories_details_screen.dart';
+import '../../../imports.dart';
 
 class AdsCategories extends StatelessWidget {
+  const AdsCategories({super.key});
+
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
@@ -24,7 +22,7 @@ class AdsCategories extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20), // Adjust the padding as needed
+          padding: const EdgeInsets.symmetric(horizontal: 20), // Adjust the padding as needed
           child: SectionTitle(title: "Ads Category", press: () {
                 // Navigator.pushReplacement(
                 //   context,
@@ -32,9 +30,9 @@ class AdsCategories extends StatelessWidget {
                 // );
               }),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           scrollDirection: Axis.horizontal,
           child: Row(
             children: List.generate(
@@ -58,11 +56,11 @@ class AdsCategories extends StatelessWidget {
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
-    Key? key,
+    super.key,
     required this.icon,
     required this.text,
     required this.press,
-  }) : super(key: key);
+  });
 
   final String? icon, text;
   final GestureTapCallback press;
@@ -85,7 +83,7 @@ class CategoryCard extends StatelessWidget {
               ),
               child: SvgPicture.asset(icon!),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(text!, textAlign: TextAlign.center)
           ],
         ),

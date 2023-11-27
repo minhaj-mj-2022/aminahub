@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'package:aminahub/imports.dart';
 
 class AppTheme {
   static ThemeData lightTheme(BuildContext context) {
@@ -28,7 +27,7 @@ class AppTheme {
   }
 }
 
-OutlineInputBorder outlineInputBorder =  OutlineInputBorder(
+OutlineInputBorder outlineInputBorder =  const OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(28)),
   borderSide: BorderSide(color: kTextColor),
   gapPadding: 10,

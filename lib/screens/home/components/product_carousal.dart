@@ -1,7 +1,4 @@
-import 'package:aminahub/size_config.dart';
-import 'package:flutter/material.dart';
-import '../../../models/clssified_ads.dart';
-import '../../category detaile /detailed_screen.dart';
+import '../../../imports.dart';
 
 class ProductCarousal extends StatelessWidget {
   final List<Product> products;

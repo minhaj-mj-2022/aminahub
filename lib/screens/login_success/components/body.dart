@@ -1,7 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../components/default_btn.dart';
 import '../../../size_config.dart';
 import '../../home/home_screen.dart';
@@ -13,8 +11,10 @@ class Body extends StatelessWidget {
       children: [
         SizedBox(height: SizeConfig.screenHeight * 0.04),
         Image.asset(
+          alignment: Alignment.center,
           "assets/images/success.png",
           height: SizeConfig.screenHeight * 0.4, //40%
+          //width: SizeConfig.screenHeight * 0.4,  
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.08),
         Text(
@@ -25,7 +25,7 @@ class Body extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         SizedBox(
           width: SizeConfig.screenWidth * 0.6,
           child: DefaultButton(
@@ -35,7 +35,7 @@ class Body extends StatelessWidget {
             },
           ),
         ),
-        Spacer(),
+        const Spacer(),
       ],
     );
   }

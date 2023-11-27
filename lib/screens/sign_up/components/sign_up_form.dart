@@ -6,7 +6,6 @@ import '../../../components/default_btn.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
-import '../../complete_profile/complete_profile_screen.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -15,6 +14,7 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  String? name;
   String? email;
   String? password;
   String? confirmPassword;
@@ -45,7 +45,6 @@ class _SignUpFormState extends State<SignUpForm> {
         password: password!,
       );
 
-      // If registration is successful, navigate to the complete profile screen
       //Navigator.pushNamed(context, CompleteProfileScreen.routeName);
         Navigator.pushNamed(context, HomeScreen.routeName);
     } on FirebaseAuthException catch (e) {
@@ -66,6 +65,8 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
+          buildNameFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
@@ -78,7 +79,7 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                _register(); // Call the registration function
+                _register(); 
               }
             },
           ),
@@ -179,4 +180,18 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
     );
   }
+
+    TextFormField buildNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) => name = newValue,
+      decoration: const InputDecoration(
+        labelText: "Last Name",
+        hintText: "Enter your last name",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
 }
+
+

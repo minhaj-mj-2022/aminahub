@@ -1,12 +1,4 @@
-import 'package:aminahub/models/clssified_ads.dart';
-import 'package:aminahub/screens/home/components/product_carousal.dart';
-import 'package:aminahub/screens/home/components/section_title.dart';
-import 'package:aminahub/screens/home/components/special_offers.dart';
-import 'package:flutter/material.dart';
-import '../../../size_config.dart';
-import '../../category detaile /categories_details_screen.dart';
-import 'ads_categories.dart';
-import 'home_header.dart';
+import '../../../imports.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -24,7 +16,7 @@ class _HomeBodyState extends State<HomeBody> {
           children: [
             Image.asset(
               'assets/images/aminahub.png',
-                height: 30,
+                height: getProportionateScreenHeight(60),
             ),
             SizedBox(height: getProportionateScreenWidth(15)),
             const HomeHeader(),

@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-//import 'package:flutter_svg/svg.dart';
-import '../../../models/clssified_ads.dart';
-import '../detailed_screen.dart';
+import '../../../imports.dart';
 
 class ProductCardCategory extends StatelessWidget {
   final List<Product> products;

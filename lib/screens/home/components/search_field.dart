@@ -1,42 +1,4 @@
-// import 'package:flutter/material.dart';
-// import '../../../constants.dart';
-// import '../../../size_config.dart';
-//
-// class SearchField extends StatelessWidget {
-//   const SearchField({
-//     Key? key,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: SizeConfig.screenWidth * 0.9,
-//       decoration: BoxDecoration(
-//         color: kSecondaryColor.withOpacity(0.1),
-//         borderRadius: BorderRadius.circular(15),
-//       ),
-//       child: TextField(
-//         onChanged: (value) => print(value),
-//         decoration: InputDecoration(
-//             contentPadding: EdgeInsets.symmetric(
-//                 horizontal: getProportionateScreenWidth(20),
-//                 vertical: getProportionateScreenWidth(9)),
-//             border: InputBorder.none,
-//             focusedBorder: InputBorder.none,
-//             enabledBorder: InputBorder.none,
-//             hintText: "Search services",
-//             prefixIcon: Icon(Icons.search)),
-//       ),
-//     );
-//   }
-// }
-
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import '../../../constants.dart';
-import '../../../size_config.dart';
-import '../../category detaile /categories_details_screen.dart';
+import '../../../imports.dart';
 
 class SearchField extends StatefulWidget {
   const SearchField({
@@ -90,7 +52,7 @@ class _SearchFieldState extends State<SearchField> {
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
               hintText: "Search services",
-              prefixIcon: Icon(Icons.search),
+              prefixIcon: const Icon(Icons.search),
             ),
           );
         },
@@ -105,7 +67,7 @@ class _SearchFieldState extends State<SearchField> {
                   maxWidth: SizeConfig.screenWidth * 0.9,
                 ),
                 child: ListView.builder(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   itemCount: options.length,
                   itemBuilder: (BuildContext context, int index) {
                     final option = options.elementAt(index);
@@ -128,31 +90,11 @@ class _SearchFieldState extends State<SearchField> {
   }
 
   void navigateToNewScreen(String item) {
-    // Use Navigator to navigate to the new screen
-    // Replace 'NewScreen' with the name of your new screen
     Navigator.of(context).push(
       MaterialPageRoute(
-        //builder: (context) => NewScreen(item), // Pass the selected item to the new screen
-        builder: (context) => CategoryDetails(barTitle: item,), // Pass the selected item to the new screen
+        builder: (context) => CategoryDetails(barTitle: item,),
       ),
     );
   }
 }
 
-class NewScreen extends StatelessWidget {
-  final String selectedItem;
-
-  NewScreen(this.selectedItem);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('New Screen'),
-      ),
-      body: Center(
-        child: Text('You selected: $selectedItem'),
-      ),
-    );
-  }
-}

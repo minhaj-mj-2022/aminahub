@@ -177,13 +177,13 @@ class FullScreenImageView extends StatelessWidget {
         itemCount: images.length,
         builder: (context, index) {
           return PhotoViewGalleryPageOptions(
-            imageProvider: AssetImage(images[index]),
+            imageProvider: NetworkImage(images[index]),
             minScale: PhotoViewComputedScale.contained * 0.8,
             maxScale: PhotoViewComputedScale.covered * 2,
           );
         },
         scrollPhysics: BouncingScrollPhysics(),
-        backgroundDecoration: BoxDecoration(
+        backgroundDecoration: const BoxDecoration(
           color: Colors.black,
         ),
         pageController: PageController(initialPage: initialIndex),

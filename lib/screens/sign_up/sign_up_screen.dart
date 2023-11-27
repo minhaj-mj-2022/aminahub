@@ -1,14 +1,13 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../components/social_card.dart';
 import '../../constants.dart';
 import '../../size_config.dart';
 import 'components/sign_up_form.dart';
 
 class SignUpScreen extends StatelessWidget {
   static String routeName = "/sign_up";
+
+  const SignUpScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +23,7 @@ class SignUpScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text("Register Account", style: headingStyle),
                   const Text(
                     "Complete your details or continue \nwith social media",
@@ -33,23 +32,23 @@ class SignUpScreen extends StatelessWidget {
                   SizedBox(height: SizeConfig.screenHeight * 0.08),
                   SignUpForm(),
                   SizedBox(height: SizeConfig.screenHeight * 0.08),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SocalCard(
-                        icon: "assets/icons/google-icon.svg",
-                        press: () {},
-                      ),
-                      SocalCard(
-                        icon: "assets/icons/facebook-2.svg",
-                        press: () {},
-                      ),
-                      SocalCard(
-                        icon: "assets/icons/twitter.svg",
-                        press: () {},
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     SocalCard(
+                  //       icon: "assets/icons/google-icon.svg",
+                  //       press: () {},
+                  //     ),
+                  //     SocalCard(
+                  //       icon: "assets/icons/facebook-2.svg",
+                  //       press: () {},
+                  //     ),
+                  //     SocalCard(
+                  //       icon: "assets/icons/twitter.svg",
+                  //       press: () {},
+                  //     ),
+                  //   ],
+                  // ),
                   SizedBox(height: getProportionateScreenHeight(20)),
                   Text(
                     'By continuing your confirm that you agree \nwith our Term and Condition',

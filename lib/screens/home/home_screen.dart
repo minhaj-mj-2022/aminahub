@@ -1,10 +1,4 @@
-import 'package:aminahub/screens/home/components/body.dart';
-import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import '../../components/custom_btm_nav_bar.dart';
-import '../../enums.dart';
-import '../selectLocation/select_city.dart';
+import '../../imports.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/home";

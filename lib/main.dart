@@ -1,9 +1,5 @@
-import 'package:aminahub/firebase_options.dart';
-import 'package:aminahub/routes.dart';
-import 'package:aminahub/screens/splash/splash_screen.dart';
+import 'package:aminahub/imports.dart';
 import 'package:aminahub/theme.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
