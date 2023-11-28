@@ -4,9 +4,7 @@ import 'package:aminahub/theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   bool isFirstLaunch = await isFirstAppLaunch();
-
   runApp(MyApp(initialRoute: isFirstLaunch ? SplashScreen.routeName : HomeScreen.routeName));
 }
 
@@ -33,8 +31,8 @@ Future<bool> isFirstAppLaunch() async {
   if (isFirstLaunch) {
     prefs.setBool('isFirstLaunch', false);
   }
-
-  return isFirstLaunch;
+  //return isFirstLaunch;
+  return true;
 }
 
 

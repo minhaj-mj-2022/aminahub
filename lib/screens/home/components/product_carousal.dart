@@ -36,7 +36,7 @@ class ProductCarousal extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: IconButton(
+            child: IconButton(//.filled
               icon: const Icon(Icons.arrow_forward_ios),
               color: Colors.blue,
               onPressed: () {

@@ -1,13 +1,10 @@
-
-import 'package:flutter/material.dart';
+import 'package:aminahub/components/default_btn.dart';
+import 'package:aminahub/components/form_error.dart';
+import 'package:aminahub/helper/keyboard.dart';
+import 'package:aminahub/size_config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../components/default_btn.dart';
-import '../../../components/form_error.dart';
-import '../../../constants.dart';
-import '../../../helper/keyboard.dart';
-import '../../../size_config.dart';
-import '../../forgot_password/forgot_password_screen.dart';
-import '../../login_success/login_success_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../../../imports.dart';
 
 class SignForm extends StatefulWidget {
   const SignForm({super.key});
@@ -18,8 +15,8 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
-  String? email;
-  String? password;
+  var emailAddress;
+  var password;
   bool? remember = false;
   final List<String?> errors = [];
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -40,25 +37,65 @@ class _SignFormState extends State<SignForm> {
     }
   }
 
-  Future<void> _signIn() async {
-    try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email!,
-        password: password!,
-      );
+  // Future<void> _signIn() async {
+  //   try {
+  //     await FirebaseAuth.instance.setPersistence(Persistence.SESSION);
+  //     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //       email: emailAddress!,
+  //       password: password!,
+  //     );
+  //     KeyboardUtil.hideKeyboard(context);
+  //     Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+  //   } on FirebaseAuthException catch (e) {
+  //       Fluttertoast.showToast(
+  //       msg: 'Invalid email or password',
+  //       toastLength: Toast.LENGTH_LONG,
+  //       gravity: ToastGravity.BOTTOM,
+  //       timeInSecForIosWeb: 3,
+  //       textColor: Colors.white,
+  //       fontSize: 16.0,
+  //     );
+  //   } catch (e) {
+  //     //print(e);
+  //   }
+  // }
 
-      // If sign-in is successful, navigate to the success screen
-      KeyboardUtil.hideKeyboard(context);
-      Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-    } on FirebaseAuthException catch (e) {
-      // Handle sign-in errors here
-      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-        addError(error: 'Invalid email or password');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  Future<void> _signIn() async {
+  try {
+  FirebaseAuth.instance
+  .authStateChanges()
+  .listen((User? user) {
+    // if (user == null) {
+    //   print('User is currently signed out!');
+    // } else {
+    //   print('User is signed in!------------------');
+    // }
+  });
+  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: emailAddress!,
+    password: password!,
+  );
+  KeyboardUtil.hideKeyboard(context);
+  Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+} catch (e) {
+  // Handle any exceptions or errors that occur
+  print(e);
+
+  // Show the toast message
+  Fluttertoast.showToast(
+    msg: 'Invalid email or password',
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 3,
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
+}
+
+}
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,29 +107,29 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          Row(
-            children: [
-              Checkbox(
-                value: remember,
-                activeColor: kPrimaryColor,
-                onChanged: (value) {
-                  setState(() {
-                    remember = value;
-                  });
-                },
-              ),
-              const Text("Remember me"),
-              const Spacer(),
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                    context, ForgotPasswordScreen.routeName),
-                child: const Text(
-                  "Forgot Password",
-                  style: TextStyle(decoration: TextDecoration.underline),
-                ),
-              )
-            ],
-          ),
+        //  Row(
+          //  children: [
+              // Checkbox(
+              //   value: remember,
+              //   activeColor: kPrimaryColor,
+              //   onChanged: (value) {
+              //     setState(() {
+              //       remember = value;
+              //     });
+              //   },
+              // ),
+              //const Text("Remember me"),
+              //const Spacer(),
+              // GestureDetector(
+              //   onTap: () => Navigator.pushNamed(
+              //       context, ForgotPasswordScreen.routeName),
+              //   child: const Text(
+              //     "Forgot Password",
+              //     style: TextStyle(decoration: TextDecoration.underline),
+              //   ),
+              // )
+            //],
+         // ),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
@@ -143,7 +180,7 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => emailAddress = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);

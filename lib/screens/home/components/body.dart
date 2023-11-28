@@ -47,9 +47,25 @@ class _HomeBodyState extends State<HomeBody> {
             ),
             SizedBox(height: getProportionateScreenWidth(10)),
             //ProductCarousal(demoProducts),
+            FutureBuilder<List<Product>>(
+            future: ProductService().getProducts(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();  
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                List<Product> products = snapshot.data ?? [];
+                if (products.isEmpty) {
+                  return const Text('No products available.');
+                }
+                return ProductCarousal(products);
+              }
+            },
+          ),
             SizedBox(height: getProportionateScreenWidth(15)),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SectionTitle(title: "Best Deals", press: () {
                 Navigator.pushReplacement(
                   context,

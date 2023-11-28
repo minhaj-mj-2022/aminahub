@@ -14,7 +14,7 @@ class Body extends StatelessWidget {
           alignment: Alignment.center,
           "assets/images/success.png",
           height: SizeConfig.screenHeight * 0.4, //40%
-          //width: SizeConfig.screenHeight * 0.4,  
+          width: SizeConfig.screenHeight * 0.6,  
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.08),
         Text(
