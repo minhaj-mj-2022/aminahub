@@ -1,4 +1,7 @@
+import 'package:aminahub/size_config.dart';
+
 import '../../imports.dart';
+
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/home";
@@ -13,8 +16,10 @@ class _HomeScreenState extends State<HomeScreen> {
   String currentCity = "Loading...";
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    //size config issue solved
+    super.didChangeDependencies();
+    SizeConfig().init(context);
     _getLocation();
   }
 

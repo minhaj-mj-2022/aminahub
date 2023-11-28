@@ -161,7 +161,6 @@ import '../../../components/custom_surfix_icon.dart';
 import '../../../components/default_btn.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
-import '../../otp/otp_screen.dart';
 
 class CompleteProfileForm extends StatefulWidget {
   const CompleteProfileForm({super.key});
@@ -210,7 +209,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 storeUserDataInFirestore();
-                Navigator.pushNamed(context, OtpScreen.routeName);
+                //Navigator.pushNamed(context, OtpScreen.routeName);
               }
             },
           ),

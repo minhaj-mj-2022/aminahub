@@ -11,7 +11,6 @@ export 'package:firebase_core/firebase_core.dart';
 export 'package:aminahub/models/clssified_ads.dart';
 export 'package:aminahub/screens/splash/splash_screen.dart';
 export 'package:aminahub/screens/home/home_screen.dart';
-export 'package:aminahub/screens/otp/otp_screen.dart';
 export 'package:aminahub/screens/profile/profile_screen.dart';
 export 'package:aminahub/screens/sign_in/sign_in_screen.dart';
 export 'package:aminahub/screens/sign_up/sign_up_screen.dart';
@@ -30,5 +29,5 @@ export 'package:aminahub/screens/selectLocation/select_city.dart';
 export 'package:aminahub/screens/home/components/search_field.dart';
 export 'package:aminahub/screens/home/components/body.dart';
 export '../../components/custom_btm_nav_bar.dart';
-
+export 'package:shared_preferences/shared_preferences.dart';
 

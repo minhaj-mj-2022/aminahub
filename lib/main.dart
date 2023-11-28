@@ -4,20 +4,37 @@ import 'package:aminahub/theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+
+  bool isFirstLaunch = await isFirstAppLaunch();
+
+  runApp(MyApp(initialRoute: isFirstLaunch ? SplashScreen.routeName : HomeScreen.routeName));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key}); 
+  final String initialRoute;
+
+  const MyApp({Key? key, required this.initialRoute}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme(context),
-      initialRoute: SplashScreen.routeName,
-      //initialRoute: HomeScreen.routeName,
+      initialRoute: initialRoute,
       routes: routes,
     );
   }
 }
+
+Future<bool> isFirstAppLaunch() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
+
+  if (isFirstLaunch) {
+    prefs.setBool('isFirstLaunch', false);
+  }
+
+  return isFirstLaunch;
+}
+
+
