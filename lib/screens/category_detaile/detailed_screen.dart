@@ -23,7 +23,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.product.heading),
+        title: Text(widget.product.title),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -32,9 +32,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           children: <Widget>[
             Image.asset(
               'assets/images/aminahub.png',
-              height: getProportionateScreenHeight(30),
+              height: getProportionateScreenHeight(60),
             ),
-            SizedBox(height: getProportionateScreenWidth(15)),
+           SizedBox(height: getProportionateScreenWidth(15)),
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -85,7 +85,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    widget.product.heading,
+                    widget.product.title,
                     style: const TextStyle(
                       fontSize: 24,
                       color: Colors.black,
@@ -94,7 +94,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   SizedBox(height: getProportionateScreenHeight(10),),
                   Text(
-                    "\$${widget.product.price}",
+                    "\$ ${widget.product.price}",
                     textAlign: TextAlign.justify,
                     style: const TextStyle(
                       fontSize: 22,
@@ -103,6 +103,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                   ),
                   SizedBox(height: getProportionateScreenHeight(5),),
+                  const Divider(
+                    thickness: 5,
+                    color: Color(0xFFFAAB37),
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(10),),
+                  Text(
+                    "\📍 ${widget.product.location_state}",
+                    textAlign: TextAlign.justify,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const Divider(
                     thickness: 5,
                     color: Color(0xFFFAAB37),

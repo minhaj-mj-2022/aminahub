@@ -1,4 +1,5 @@
 import '../../../imports.dart';
+import '../../../size_config.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({

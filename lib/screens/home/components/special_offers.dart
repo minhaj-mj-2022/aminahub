@@ -1,5 +1,6 @@
 
 import '../../../imports.dart';
+import '../../../size_config.dart';
 
 class SpecialOffers extends StatelessWidget {
   const SpecialOffers({

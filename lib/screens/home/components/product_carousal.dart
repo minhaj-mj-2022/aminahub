@@ -1,3 +1,5 @@
+import 'package:aminahub/size_config.dart';
+
 import '../../../imports.dart';
 
 class ProductCarousal extends StatelessWidget {
@@ -10,7 +12,7 @@ class ProductCarousal extends StatelessWidget {
   return Padding(
     padding: const EdgeInsets.only(left: 6),
     child: SizedBox(
-      height: getProportionateScreenHeight(282),
+      height: getProportionateScreenHeight(355),
       width: SizeConfig.screenWidth,
       child: Stack(
         children: [
@@ -69,12 +71,12 @@ class ProductCarousal extends StatelessWidget {
       child: Column(
         children: [
           AspectRatio(
-            aspectRatio: 0.75,
+            aspectRatio: 9/16,
             child: Image.network(product.images[0]),
           ),
           const SizedBox(height: 2,),
           Text(
-            product.heading,
+            product.title,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(

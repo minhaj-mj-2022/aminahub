@@ -1,4 +1,5 @@
 import 'package:aminahub/imports.dart';
+import 'package:aminahub/size_config.dart';
 
 const kPrimaryColor = Color(0xFFFAAB37);
 const kPrimaryLightColor = Color(0xFFFFECDF);

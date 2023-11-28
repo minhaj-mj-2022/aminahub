@@ -1,20 +1,21 @@
+import 'package:aminahub/size_config.dart';
 import '../../../imports.dart';
 
 class ProductCardCategory extends StatelessWidget {
-  final List<Product> products;
+  final List <Product> products;
 
   const ProductCardCategory(this.products, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(2),
+      padding: EdgeInsets.all(2),
       child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 0.57,
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 300,
+          childAspectRatio: getProportionateScreenHeight(0.45),
           crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
+          mainAxisSpacing: 16,
         ),
         itemCount: products.length,
         itemBuilder: (BuildContext context, int index) {
@@ -52,11 +53,11 @@ class ProductCardCategory extends StatelessWidget {
       child: Column(
         children: [
           AspectRatio(
-            aspectRatio: .75,
+            aspectRatio: 9/16,
             child: Image.network(product.images[0]),
           ),
           Text(
-            product.heading,
+            product.title,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(

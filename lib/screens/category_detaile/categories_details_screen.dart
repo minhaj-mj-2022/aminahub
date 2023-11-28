@@ -1,3 +1,5 @@
+import 'package:aminahub/size_config.dart';
+
 import '../../imports.dart';
 
 class CategoryDetails extends StatelessWidget {
@@ -29,11 +31,12 @@ class CategoryDetails extends StatelessWidget {
       ),
       body: Column(
         children: [
+          SizedBox(height: getProportionateScreenWidth(10)),
           Image.asset(
             "assets/images/aminahub_backup.png",
             height: getProportionateScreenHeight(20),
           ),
-          const SizedBox(height: 15,),
+          SizedBox(height: getProportionateScreenHeight(10),),
           FutureBuilder<List<Product>>(
             future: ProductService().getProducts(),
             builder: (context, snapshot) {

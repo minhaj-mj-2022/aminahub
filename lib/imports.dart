@@ -3,7 +3,6 @@ export '../../enums.dart';
 export 'package:flutter/material.dart';
 export 'package:aminahub/routes.dart';
 export 'package:flutter_svg/flutter_svg.dart';
-export 'package:aminahub/size_config.dart';
 export 'package:geocoding/geocoding.dart';
 export 'package:geolocator/geolocator.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';

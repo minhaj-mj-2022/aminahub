@@ -2,13 +2,14 @@ import 'package:aminahub/imports.dart';
 
 class Product {
   final int id;
-  final String heading, description, contactInfo, price;
+  final String title,location_state, description, contactInfo, price;
   final List<String> images;
 
   Product({
     required this.id,
     required this.images,
-    required this.heading,
+    required this.title,
+    required this.location_state,
     required this.price,
     required this.description,
     required this.contactInfo,
@@ -32,11 +33,12 @@ class ProductService {
 
       Product product = Product(
         id: data['id']?? 0,
-        heading: data['heading']?? "No value",
-        description: data['descriptions']?? "No value",
+        title: data['title']?? "No value",
+        description: data['description']?? "No value",
         contactInfo: data['contact']?? "No value",
         images: images, 
-        price: data['price']?? "No value",
+        price: data['price'] ?? "No value",
+        location_state: data['location_state'] ?? "No Value",
       );
 
       products.add(product);

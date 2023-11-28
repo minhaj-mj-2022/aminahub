@@ -30,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
       if (placeMarks.isNotEmpty) {
         Placemark placeMark = placeMarks[0];
-        String? city = placeMark.locality;
+        String? state = placeMark.administrativeArea;
         setState(() {
-          currentCity = city ?? "failed";
+          currentCity = state ?? "failed";
         });
       }
     }
