@@ -1,5 +1,6 @@
 import 'package:aminahub/components/default_btn.dart';
 import 'package:aminahub/components/form_error.dart';
+import 'package:aminahub/global.dart';
 import 'package:aminahub/helper/keyboard.dart';
 import 'package:aminahub/size_config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,22 +41,23 @@ class _SignFormState extends State<SignForm> {
 
   Future<void> _signIn() async {
   try {
-  FirebaseAuth.instance
-  .authStateChanges()
-  .listen((User? user) {
-    // if (user == null) {
-    //   print('User is currently signed out!');
-    // } else {
-    //   print('User is signed in!------------------');
-    // }
-  });
-  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: emailAddress!,
-    password: password!,
-  );
-  KeyboardUtil.hideKeyboard(context);
-  Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-} catch (e) {
+    FirebaseAuth.instance
+    .authStateChanges()
+    .listen((User? user) {
+      globalEmail = user?.email;
+      // if (user == null) {
+      //   print('User is currently signed out!');
+      // } else {
+      //   print('User is signed in!------------------');
+      // }
+    });
+    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailAddress!,
+      password: password!,
+    );
+    KeyboardUtil.hideKeyboard(context);
+    Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+  } catch (e) {
   // Handle any exceptions or errors that occur
   print(e);
 
