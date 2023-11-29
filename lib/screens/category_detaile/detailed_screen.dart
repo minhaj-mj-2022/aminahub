@@ -1,7 +1,5 @@
-import 'package:aminahub/models/clssified_ads.dart';
-import 'package:aminahub/size_config.dart';
+import 'package:aminahub/imports.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -18,13 +16,92 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _currentImageIndex = 0;
+  //bool isBookmarked = false;
+
+  Future addToBookamark() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    var currentUser = _auth.currentUser;
+    CollectionReference _collectionRef = FirebaseFirestore.instance.collection("Bookmarks");
+    return _collectionRef
+    .doc(currentUser!.email)
+    .collection("items")
+    .doc()
+    .set({
+      "title": widget.product.title,
+      "ads_id": widget.product.id,
+      "images": widget.product.images,
+      "price": widget.product.price,
+      "description": widget.product.description,
+      "contactInfo": widget.product.contactInfo,
+      "location_state": widget.product.location_state,
+    }).then((value) => print("added to bookmarked"));
+  }
+
+  // Function to add item to bookmarks
+  void addToBookmark() {
+    FirebaseFirestore.instance
+        .collection("Bookmarks")
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .collection("items")
+        .add({
+      "title": widget.product.title,
+      "ads_id": widget.product.id,
+      "images": widget.product.images,
+      "price": widget.product.price,
+      "description": widget.product.description,
+      "contactInfo": widget.product.contactInfo,
+      "location_state": widget.product.location_state,
+      // Add other fields as needed
+    });
+  }
+
+  // Function to remove item from bookmarks
+  void removeFromBookmark() {
+    FirebaseFirestore.instance
+        .collection("Bookmarks")
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .collection("items")
+        .where("title", isEqualTo: widget.product.title)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.delete();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+ appBar: AppBar(
         title: Text(widget.product.title),
+        actions: [
+          StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("Bookmarks")
+                .doc(FirebaseAuth.instance.currentUser!.email)
+                .collection("items")
+                .where("title", isEqualTo: widget.product.title)
+                .snapshots(),
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              bool isBookmarked = snapshot.data?.docs.isNotEmpty ?? false;
+              return IconButton(
+                icon: Icon(
+                  isBookmarked ? Icons.favorite : Icons.favorite_border,
+                  color: Colors.red,
+                  size: 40,
+                ),
+                onPressed: () {
+                  isBookmarked ? removeFromBookmark() : addToBookmark();
+                },
+              );
+            },
+          ),
+        ],
       ),
+
+      
+
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

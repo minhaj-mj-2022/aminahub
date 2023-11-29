@@ -32,7 +32,7 @@ class ProductService {
       List<String> images = List<String>.from(data['images']);
 
       Product product = Product(
-        id: data['id']?? 0,
+        id: data['ads_id']?? 0,
         title: data['title']?? "No value",
         description: data['description']?? "No value",
         contactInfo: data['contact']?? "No value",

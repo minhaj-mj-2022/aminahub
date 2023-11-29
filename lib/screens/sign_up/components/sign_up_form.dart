@@ -1,5 +1,4 @@
 import 'package:aminahub/helper/keyboard.dart';
-
 import '../../../imports.dart';
 
 class SignUpForm extends StatefulWidget {
