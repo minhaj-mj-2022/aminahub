@@ -37,28 +37,6 @@ class _SignFormState extends State<SignForm> {
     }
   }
 
-  // Future<void> _signIn() async {
-  //   try {
-  //     await FirebaseAuth.instance.setPersistence(Persistence.SESSION);
-  //     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //       email: emailAddress!,
-  //       password: password!,
-  //     );
-  //     KeyboardUtil.hideKeyboard(context);
-  //     Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-  //   } on FirebaseAuthException catch (e) {
-  //       Fluttertoast.showToast(
-  //       msg: 'Invalid email or password',
-  //       toastLength: Toast.LENGTH_LONG,
-  //       gravity: ToastGravity.BOTTOM,
-  //       timeInSecForIosWeb: 3,
-  //       textColor: Colors.white,
-  //       fontSize: 16.0,
-  //     );
-  //   } catch (e) {
-  //     //print(e);
-  //   }
-  // }
 
   Future<void> _signIn() async {
   try {
