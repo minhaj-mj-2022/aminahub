@@ -1,5 +1,4 @@
 import 'package:aminahub/size_config.dart';
-
 import '../../../imports.dart';
 
 class ProductCarousal extends StatelessWidget {
