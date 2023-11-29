@@ -1,13 +1,6 @@
-import 'package:aminahub/screens/home/home_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart'; 
-import '../../../components/custom_surfix_icon.dart';
-import '../../../components/default_btn.dart';
-import '../../../components/form_error.dart';
-import '../../../constants.dart';
-import '../../../size_config.dart';
+import 'package:aminahub/helper/keyboard.dart';
+
+import '../../../imports.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -23,6 +16,25 @@ class _SignUpFormState extends State<SignUpForm> {
   bool remember = false;
   final List<String?> errors = [];
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+    void showLoadingDialog() {
+  showDialog(
+    context: context,
+    barrierDismissible: false, 
+    builder: (BuildContext context) {
+      return const AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 10),
+            Text("Loading..."),
+          ],
+        ),
+      );
+    },
+  );
+}
 
   void addError({String? error}) {
     if (!errors.contains(error)) {
@@ -40,34 +52,23 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
-  // Future<void> _register() async {
-  //   try {
-  //     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-  //       email: email!,
-  //       password: password!,
-  //     );
-  //     Navigator.pushNamed(context, HomeScreen.routeName);
-  //   } on FirebaseAuthException catch (e) {
-  //      Fluttertoast.showToast(
-  //       msg: 'Something went wrong, Try again',
-  //       toastLength: Toast.LENGTH_LONG,
-  //       gravity: ToastGravity.BOTTOM,
-  //       timeInSecForIosWeb: 3,
-  //       textColor: Colors.white,
-  //       fontSize: 16.0,
-  //     );
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
 Future<void> _register() async {
   try {
+        FirebaseAuth.instance
+    .authStateChanges()
+    .listen((User? user) {
+      globalEmail = user?.email;
+      // if (user == null) {
+      //   print('User is currently signed out!');
+      // } else {
+      //   print('User is signed in!');
+      // }
+    });
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
       email: email!,
       password: password!,
     );
-
+  
     // Add user data to Firestore
     await FirebaseFirestore.instance.collection('users').doc(email!).set({
       'email': email!,
@@ -106,14 +107,24 @@ Future<void> _register() async {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Continue",
-            press: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                _register(); 
-              }
-            },
-          ),
+          text: "Continue",
+          press: () async {
+            if (_formKey.currentState!.validate()) {
+              _formKey.currentState!.save();
+              // Show CircularProgressIndicator
+              showLoadingDialog();
+              
+              // Delay execution for 3 seconds
+              await Future.delayed(Duration(seconds: 3));
+
+              // Hide CircularProgressIndicator
+              Navigator.of(context, rootNavigator: true).pop();
+
+              KeyboardUtil.hideKeyboard(context);
+              _register(); 
+              KeyboardUtil.hideKeyboard(context);
+            }
+          },)
         ],
       ),
     );

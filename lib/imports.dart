@@ -30,4 +30,11 @@ export 'package:aminahub/screens/home/components/search_field.dart';
 export 'package:aminahub/screens/home/components/body.dart';
 export '../../components/custom_btm_nav_bar.dart';
 export 'package:shared_preferences/shared_preferences.dart';
+export 'package:aminahub/global.dart';
+export 'package:firebase_auth/firebase_auth.dart';
+export 'package:fluttertoast/fluttertoast.dart'; 
+export '../../../components/custom_surfix_icon.dart';
+export '../../../components/default_btn.dart';
+export '../../../components/form_error.dart';
+export '../../../size_config.dart';
 

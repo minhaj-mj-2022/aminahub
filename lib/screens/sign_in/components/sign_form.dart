@@ -1,10 +1,4 @@
-import 'package:aminahub/components/default_btn.dart';
-import 'package:aminahub/components/form_error.dart';
-import 'package:aminahub/global.dart';
 import 'package:aminahub/helper/keyboard.dart';
-import 'package:aminahub/size_config.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../../imports.dart';
 
 class SignForm extends StatefulWidget {
@@ -20,7 +14,26 @@ class _SignFormState extends State<SignForm> {
   var password;
   bool? remember = false;
   final List<String?> errors = [];
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
+
+  void showLoadingDialog() {
+  showDialog(
+    context: context,
+    barrierDismissible: false, 
+    builder: (BuildContext context) {
+      return const AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 10),
+            Text("Loading..."),
+          ],
+        ),
+      );
+    },
+  );
+}
 
   void addError({String? error}) {
     if (!errors.contains(error)) {
@@ -48,22 +61,21 @@ class _SignFormState extends State<SignForm> {
       // if (user == null) {
       //   print('User is currently signed out!');
       // } else {
-      //   print('User is signed in!------------------');
+      //   print('User is signed in!');
       // }
     });
     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: emailAddress!,
       password: password!,
     );
-    KeyboardUtil.hideKeyboard(context);
-    Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+    Navigator.pushNamed(context, HomeScreen.routeName);
   } catch (e) {
   // Handle any exceptions or errors that occur
   print(e);
 
   // Show the toast message
   Fluttertoast.showToast(
-    msg: 'Invalid email or password',
+    msg: 'Wrong email or password',
     toastLength: Toast.LENGTH_LONG,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 3,
@@ -73,9 +85,6 @@ class _SignFormState extends State<SignForm> {
 }
 
 }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -113,14 +122,24 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
-            text: "Continue",
-            press: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                _signIn(); // Call the sign-in function
-              }
-            },
-          ),
+          text: "Continue",
+          press: () async {
+            if (_formKey.currentState!.validate()) {
+              _formKey.currentState!.save();
+              // Show CircularProgressIndicator
+              showLoadingDialog();
+              
+              // Delay execution for 3 seconds
+              await Future.delayed(Duration(seconds: 3));
+
+              // Hide CircularProgressIndicator
+              Navigator.of(context, rootNavigator: true).pop();
+
+              KeyboardUtil.hideKeyboard(context);
+              _signIn();
+              KeyboardUtil.hideKeyboard(context);
+            }
+          },)
         ],
       ),
     );
