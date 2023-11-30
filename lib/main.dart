@@ -31,8 +31,8 @@ Future<bool> isFirstAppLaunch() async {
   if (isFirstLaunch) {
     prefs.setBool('isFirstLaunch', false);
   }
-  //return isFirstLaunch;
-  return true;
+  return isFirstLaunch;
+  //return true;
 }
 
 

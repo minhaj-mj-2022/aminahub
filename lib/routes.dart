@@ -1,4 +1,5 @@
 import 'package:aminahub/imports.dart';
+import 'package:aminahub/screens/bookmarks/bookmarks.dart';
 import 'package:aminahub/screens/profile/components/my_account.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -11,4 +12,5 @@ final Map<String, WidgetBuilder> routes = {
   HomeScreen.routeName: (context) => HomeScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
   MyAccount.routeName: (context) => MyAccount(),
+  FavouritesScreen.routeName: (context) => FavouritesScreen(),
 };

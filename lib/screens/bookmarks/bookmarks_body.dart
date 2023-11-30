@@ -1,9 +1,9 @@
 import '../../imports.dart';
 
-class CategoryDetails extends StatelessWidget {
+class BookmarkBody extends StatelessWidget {
   final String barTitle;
 
-  const CategoryDetails({
+  const BookmarkBody({
     super.key,
     required this.barTitle,
   });
@@ -36,7 +36,7 @@ class CategoryDetails extends StatelessWidget {
           ),
           SizedBox(height: getProportionateScreenHeight(10),),
           FutureBuilder<List<Product>>(
-            future: ProductService().getProducts(),
+            future: ProductService().getBookmarks(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();  

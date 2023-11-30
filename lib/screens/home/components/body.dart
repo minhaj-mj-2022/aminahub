@@ -1,5 +1,4 @@
 import 'package:aminahub/size_config.dart';
-
 import '../../../imports.dart';
 
 class HomeBody extends StatefulWidget {
@@ -75,7 +74,7 @@ class _HomeBodyState extends State<HomeBody> {
             ),
             SizedBox(height: getProportionateScreenWidth(10)),
             FutureBuilder<List<Product>>(
-            future: ProductService().getProducts(),
+            future: ProductService().getAdsByCategory("itTraining"),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();  

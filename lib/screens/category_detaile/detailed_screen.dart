@@ -16,27 +16,7 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _currentImageIndex = 0;
-  //bool isBookmarked = false;
-
-  Future addToBookamark() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    var currentUser = _auth.currentUser;
-    CollectionReference _collectionRef = FirebaseFirestore.instance.collection("Bookmarks");
-    return _collectionRef
-    .doc(currentUser!.email)
-    .collection("items")
-    .doc()
-    .set({
-      "title": widget.product.title,
-      "ads_id": widget.product.id,
-      "images": widget.product.images,
-      "price": widget.product.price,
-      "description": widget.product.description,
-      "contactInfo": widget.product.contactInfo,
-      "location_state": widget.product.location_state,
-    }).then((value) => print("added to bookmarked"));
-  }
-
+  
   // Function to add item to bookmarks
   void addToBookmark() {
     FirebaseFirestore.instance
@@ -99,8 +79,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
         ],
       ),
-
-      
 
       body: SingleChildScrollView(
         child: Column(
