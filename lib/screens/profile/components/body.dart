@@ -1,3 +1,4 @@
+import 'package:aminahub/screens/help_center.dart';
 import 'package:aminahub/screens/profile/components/my_account.dart';
 import 'package:aminahub/screens/profile/components/profile_menu.dart';
 import 'package:aminahub/screens/profile/components/profile_pic.dart';
@@ -41,7 +42,9 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Help Center",
             icon: "assets/icons/Question mark.svg",
-            press: () {},
+            press: () => {
+              Navigator.pushNamed(context, HelpCenterScreen.routeName)
+            },
           ),
           ProfileMenu(
             text: "Log Out",
