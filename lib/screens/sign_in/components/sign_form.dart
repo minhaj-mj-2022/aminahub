@@ -57,7 +57,6 @@ class _SignFormState extends State<SignForm> {
     FirebaseAuth.instance
     .authStateChanges()
     .listen((User? user) {
-      globalEmail = user?.email;
       // if (user == null) {
       //   print('User is currently signed out!');
       // } else {

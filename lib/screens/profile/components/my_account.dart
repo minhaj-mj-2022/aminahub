@@ -1,12 +1,12 @@
-import 'package:aminahub/global.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyAccount extends StatelessWidget {
   static const String routeName = "/MyAccount";
 
   MyAccount({super.key});
-  final String? email = GlobalVars.getEmail();
+  final String? email = FirebaseAuth.instance.currentUser!.email;
 
   Future<String?> getUserName() async {
     try {

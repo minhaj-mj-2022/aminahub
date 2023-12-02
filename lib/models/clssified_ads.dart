@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:aminahub/imports.dart';
 
 class Product {
-  final int id;
-  final String title, location_state, description, contactInfo, price;
+  final String id, title, location_state, description, contactInfo, price;
   final List<String> images;
 
   Product({
@@ -31,7 +30,11 @@ class ProductService {
     for (var doc in querySnapshot.docs) {
       var data = doc.data() as Map<String, dynamic>;
 
-      List<String> images = List<String>.from(data['images']);
+      //List<String> images = List<String>.from(data['images']);
+      List<String> images = List<String>.from(data['images']?.toList() ??
+          [
+            "https://firebasestorage.googleapis.com/v0/b/aminahub-18c2f.appspot.com/o/constant%2F%E2%80%94Pngtree%E2%80%94404%20error%20page_2596650.png?alt=media&token=9500fc72-5538-4e5a-abd2-6ff69cb20eee"
+          ]);
 
       Product product = Product(
         id: data['ads_id'] ?? 0,
@@ -61,7 +64,7 @@ class ProductService {
         List<String> images = List<String>.from(data['images']);
 
         Product product = Product(
-          id: data['ads_id'] ?? 0,
+          id: data['ads_id'] ?? "No Value",
           title: data['title'] ?? "No value",
           description: data['description'] ?? "No value",
           contactInfo: data['contact'] ?? "No value",

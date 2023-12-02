@@ -16,24 +16,24 @@ class _SignUpFormState extends State<SignUpForm> {
   final List<String?> errors = [];
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-    void showLoadingDialog() {
-  showDialog(
-    context: context,
-    barrierDismissible: false, 
-    builder: (BuildContext context) {
-      return const AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 10),
-            Text("Loading..."),
-          ],
-        ),
-      );
-    },
-  );
-}
+  void showLoadingDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 10),
+              Text("Loading..."),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   void addError({String? error}) {
     if (!errors.contains(error)) {
@@ -51,44 +51,41 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
-Future<void> _register() async {
-  try {
-        FirebaseAuth.instance
-    .authStateChanges()
-    .listen((User? user) {
-      globalEmail = user?.email;
-      // if (user == null) {
-      //   print('User is currently signed out!');
-      // } else {
-      //   print('User is signed in!');
-      // }
-    });
-    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-      email: email!,
-      password: password!,
-    );
-  
-    // Add user data to Firestore
-    await FirebaseFirestore.instance.collection('users').doc(email!).set({
-      'email': email!,
-      'name': name!, // Replace 'YourUserName' with the actual user name
-    });
+  Future<void> _register() async {
+    try {
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        // if (user == null) {
+        //   print('User is currently signed out!');
+        // } else {
+        //   print('User is signed in!');
+        // }
+      });
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: email!,
+        password: password!,
+      );
 
-    Navigator.pushNamed(context, HomeScreen.routeName);
-  } on FirebaseAuthException catch (e) {
-    Fluttertoast.showToast(
-      msg: 'Something went wrong, Try again',
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 3,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-  } catch (e) {
-    print(e);
+      // Add user data to Firestore
+      await FirebaseFirestore.instance.collection('users').doc(email!).set({
+        'email': email!,
+        'name': name!, // Replace 'YourUserName' with the actual user name
+      });
+
+      Navigator.pushNamed(context, HomeScreen.routeName);
+    } on FirebaseAuthException catch (e) {
+      Fluttertoast.showToast(
+        msg: 'Something went wrong, Try again',
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 3,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    } catch (e) {
+      print(e);
+    }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -106,24 +103,25 @@ Future<void> _register() async {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-          text: "Continue",
-          press: () async {
-            if (_formKey.currentState!.validate()) {
-              _formKey.currentState!.save();
-              // Show CircularProgressIndicator
-              showLoadingDialog();
-              
-              // Delay execution for 3 seconds
-              await Future.delayed(Duration(seconds: 3));
+            text: "Continue",
+            press: () async {
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                // Show CircularProgressIndicator
+                showLoadingDialog();
 
-              // Hide CircularProgressIndicator
-              Navigator.of(context, rootNavigator: true).pop();
+                // Delay execution for 3 seconds
+                await Future.delayed(Duration(seconds: 3));
 
-              KeyboardUtil.hideKeyboard(context);
-              _register(); 
-              KeyboardUtil.hideKeyboard(context);
-            }
-          },)
+                // Hide CircularProgressIndicator
+                Navigator.of(context, rootNavigator: true).pop();
+
+                KeyboardUtil.hideKeyboard(context);
+                _register();
+                KeyboardUtil.hideKeyboard(context);
+              }
+            },
+          )
         ],
       ),
     );
@@ -222,7 +220,7 @@ Future<void> _register() async {
     );
   }
 
-    TextFormField buildNameFormField() {
+  TextFormField buildNameFormField() {
     return TextFormField(
       onSaved: (newValue) => name = newValue,
       decoration: const InputDecoration(
@@ -234,5 +232,3 @@ Future<void> _register() async {
     );
   }
 }
-
-

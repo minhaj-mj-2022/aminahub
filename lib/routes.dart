@@ -2,6 +2,7 @@ import 'package:aminahub/imports.dart';
 import 'package:aminahub/screens/bookmarks/bookmarks.dart';
 import 'package:aminahub/screens/help_center.dart';
 import 'package:aminahub/screens/profile/components/my_account.dart';
+import 'package:aminahub/screens/profile/components/upload.dart';
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
@@ -15,4 +16,5 @@ final Map<String, WidgetBuilder> routes = {
   MyAccount.routeName: (context) => MyAccount(),
   FavouritesScreen.routeName: (context) => FavouritesScreen(),
   HelpCenterScreen.routeName: (context) => HelpCenterScreen(),
+  UploadForm.routeName: (context) => UploadForm(),
 };
