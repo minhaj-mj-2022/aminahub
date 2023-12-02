@@ -8,8 +8,9 @@ class FavouritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: BookmarkBody(barTitle: 'Best Deals'),
-      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.favourite),
+      body: BookmarkBody(barTitle: 'Bookmarks'),
+      bottomNavigationBar:
+          CustomBottomNavBar(selectedMenu: MenuState.favourite),
     );
   }
 }

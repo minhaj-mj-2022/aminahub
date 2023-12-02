@@ -1,5 +1,4 @@
-import 'package:aminahub/size_config.dart';
-
+import 'package:aminahub/screens/category_icons.dart';
 import '../../../imports.dart';
 
 class AdsCategories extends StatelessWidget {
@@ -8,24 +7,27 @@ class AdsCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/itTraining.svg", "text": "ItTaining"},
-      {"icon": "assets/icons/rent.svg", "text": "rent"},
-      {"icon": "assets/icons/services.svg", "text": "services"},
-      {"icon": "assets/icons/property.svg", "text": "property"},
-      {"icon": "assets/icons/event.svg", "text": "event"},
+      {"icon": "assets/icons/itTraining.svg", "text": "IT Training"},
+      {"icon": "assets/icons/rent.svg", "text": "Rentals"},
+      {"icon": "assets/icons/services.svg", "text": "Services"},
+      {"icon": "assets/icons/property.svg", "text": "Property"},
+      {"icon": "assets/icons/event.svg", "text": "Events"},
+      {"icon": "assets/icons/travel.svg", "text": "travel"},
       {"icon": "assets/icons/buySell.svg", "text": "buySell"},
       {"icon": "assets/icons/homeServices.svg", "text": "homeservices"},
       {"icon": "assets/icons/lawyer.svg", "text": "lawyer"},
       {"icon": "assets/icons/roommates.svg", "text": "roommates"},
-      {"icon": "assets/icons/travel.svg", "text": "travel"},
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20), // Adjust the padding as needed
-          child: SectionTitle(title: "Ads Category", press: () {
+          padding: const EdgeInsets.symmetric(
+              horizontal: 20), // Adjust the padding as needed
+          child: SectionTitle(
+              title: "Ads Category",
+              press: () {
                 // Navigator.pushReplacement(
                 //   context,
                 //   MaterialPageRoute(builder: (BuildContext context) => CategoryDetails(barTitle: 'Popular Products')),
@@ -39,12 +41,13 @@ class AdsCategories extends StatelessWidget {
           child: Row(
             children: List.generate(
               categories.length,
-                  (index) => CategoryCard(
+              (index) => CategoryCard(
                 icon: categories[index]["icon"],
                 text: categories[index]["text"],
                 press: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CategoryDetails(barTitle: categories[index]["text"]),
+                    builder: (context) =>
+                        CategoryIcons(barTitle: categories[index]["text"]),
                   ));
                 },
               ),
@@ -72,7 +75,8 @@ class CategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),
+        padding:
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),
         child: Column(
           children: [
             Container(
@@ -93,4 +97,3 @@ class CategoryCard extends StatelessWidget {
     );
   }
 }
-

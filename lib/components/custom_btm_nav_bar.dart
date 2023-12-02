@@ -1,4 +1,3 @@
-
 import 'package:aminahub/screens/bookmarks/bookmarks.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,9 +55,9 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: MenuState.favourite == selectedMenu
                       ? kPrimaryColor
                       : inActiveIconColor,
-                  ),
+                ),
                 onPressed: () =>
-                Navigator.pushNamed(context, FavouritesScreen.routeName),
+                    Navigator.pushNamed(context, FavouritesScreen.routeName),
               ),
               IconButton(
                 icon: SvgPicture.asset(
