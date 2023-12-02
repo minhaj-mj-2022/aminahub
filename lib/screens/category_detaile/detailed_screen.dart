@@ -16,7 +16,7 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _currentImageIndex = 0;
-  
+
   // Function to add item to bookmarks
   void addToBookmark() {
     FirebaseFirestore.instance
@@ -53,7 +53,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
- appBar: AppBar(
+      appBar: AppBar(
         title: Text(widget.product.title),
         actions: [
           StreamBuilder(
@@ -63,7 +63,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 .collection("items")
                 .where("title", isEqualTo: widget.product.title)
                 .snapshots(),
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               bool isBookmarked = snapshot.data?.docs.isNotEmpty ?? false;
               return IconButton(
                 icon: Icon(
@@ -79,7 +80,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
         ],
       ),
-
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -89,7 +89,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               'assets/images/aminahub.png',
               height: getProportionateScreenHeight(60),
             ),
-           SizedBox(height: getProportionateScreenWidth(15)),
+            SizedBox(height: getProportionateScreenWidth(15)),
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -110,7 +110,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   height: getProportionateScreenHeight(450),
                   enlargeCenterPage: true,
                   autoPlay: true,
-                  aspectRatio: 9/16,
+                  aspectRatio: 9 / 16,
                   enableInfiniteScroll: false,
                   autoPlayInterval: const Duration(seconds: 3),
                   enlargeFactor: 0.2,
@@ -136,8 +136,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
             const SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.only(left: getProportionateScreenWidth(25), right: 30, bottom: getProportionateScreenWidth(25)),
+              padding: EdgeInsets.only(
+                  left: getProportionateScreenWidth(25),
+                  right: 30,
+                  bottom: getProportionateScreenWidth(25)),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     widget.product.title,
@@ -147,36 +152,63 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(10),),
-                  Text(
-                    "\$ ${widget.product.price}",
-                    textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
+                  SizedBox(
+                    height: getProportionateScreenHeight(10),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: 'Price: ',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "\$: ${widget.product.price}",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(5),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(5),
+                  ),
                   const Divider(
-                    thickness: 5,
+                    thickness: 2,
                     color: Color(0xFFFAAB37),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(10),),
-                  Text(
-                    "\📍 ${widget.product.location_state}",
-                    textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: 'Location: ',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: widget.product.location_state,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const Divider(
-                    thickness: 5,
-                    color: Color(0xFFFAAB37),
+                  SizedBox(
+                    height: getProportionateScreenHeight(10),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(10),),
                   const Text(
                     "Descriptions",
                     style: TextStyle(
@@ -188,10 +220,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ReadMoreText(
                     widget.product.description,
                     textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16
-                    ),
+                    style: const TextStyle(color: Colors.black, fontSize: 16),
                     trimLines: 5,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: 'Show more',
@@ -199,12 +228,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     moreStyle: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blueAccent
+                      //color: Colors.blueAccent
                     ),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(5),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(5),
+                  ),
                   const Divider(
-                    thickness: 5,
+                    thickness: 2,
                     color: Color(0xFFFAAB37),
                   ),
                   const Text(
@@ -222,7 +253,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(5),),
+                  SizedBox(
+                    height: getProportionateScreenHeight(5),
+                  ),
                 ],
               ),
             ),
