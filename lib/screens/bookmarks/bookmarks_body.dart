@@ -34,12 +34,14 @@ class BookmarkBody extends StatelessWidget {
             "assets/images/aminahub_backup.png",
             height: getProportionateScreenHeight(20),
           ),
-          SizedBox(height: getProportionateScreenHeight(10),),
+          SizedBox(
+            height: getProportionateScreenHeight(10),
+          ),
           FutureBuilder<List<Product>>(
             future: ProductService().getBookmarks(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();  
+                return const CircularProgressIndicator();
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
@@ -55,5 +57,3 @@ class BookmarkBody extends StatelessWidget {
     );
   }
 }
-
-

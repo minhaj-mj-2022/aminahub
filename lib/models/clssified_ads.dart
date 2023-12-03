@@ -95,7 +95,7 @@ class ProductService {
       List<String> images = List<String>.from(data['images']);
 
       Product product = Product(
-        id: data['ads_id'] ?? 0,
+        id: data['ads_id'] ?? "No Value",
         title: data['title'] ?? "No value",
         description: data['description'] ?? "No value",
         contactInfo: data['contactInfo'] ?? "No value",
