@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:aminahub/imports.dart';
 
 class MyAds extends StatefulWidget {
   static const String routeName = '/MyAds';
 
-  const MyAds({Key? key}) : super(key: key);
+  const MyAds({super.key});
 
   @override
   State<MyAds> createState() => _MyAdsState();
@@ -16,7 +14,7 @@ class _MyAdsState extends State<MyAds> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Ads'),
+        title: const Text('My Ads'),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -36,19 +34,16 @@ class _MyAdsState extends State<MyAds> {
             );
           }
 
-          // Display the ads in a ListView
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               var ad =
                   snapshot.data!.docs[index].data() as Map<String, dynamic>;
 
-              // Extract necessary information from the ad
-              String imageUrl = ad['images'][0];
-              String title = ad['title'];
+              String imageUrl = ad['images'][0] ?? 'NA';
+              String title = ad['title'] ?? 'NA';
               String price = ad['price'] ?? 'NA';
 
-              // Display the information in a ListTile with Edit and Delete buttons
               return Column(
                 children: [
                   ListTile(
@@ -57,13 +52,12 @@ class _MyAdsState extends State<MyAds> {
                       price,
                       style: const TextStyle(color: Colors.green),
                     ),
-                    leading: Container(
-                      width: 100, // Set the desired width
-                      height: 100, // Set the desired height
+                    leading: SizedBox(
+                      width: 100,
+                      height: 100,
                       child: Image.network(
                         imageUrl,
-                        fit: BoxFit
-                            .cover, // Adjust the BoxFit property as needed
+                        fit: BoxFit.fitWidth,
                       ),
                     ),
                     trailing: Row(
@@ -71,28 +65,29 @@ class _MyAdsState extends State<MyAds> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            // Navigate to the EditAdPage, passing ad data
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => EditAdPage(ad: ad),
+                                builder: (context) => EditAdPage(
+                                  ad: ad,
+                                  adId: snapshot.data!.docs[index].id,
+                                ),
                               ),
                             );
                           },
-                          icon: Icon(Icons.edit, color: Colors.blue),
+                          icon: const Icon(Icons.edit, color: Colors.blue),
                         ),
-                        SizedBox(width: 8), // Add some space between buttons
-                        IconButton(
-                          onPressed: () {
-                            // Call a function to delete the ad
-                            _deleteAd(snapshot.data!.docs[index].id);
-                          },
-                          icon: Icon(Icons.delete, color: Colors.red),
-                        ),
+                        // // const SizedBox(width: 8),
+                        // IconButton(
+                        //   onPressed: () {
+                        //     _deleteAd(snapshot.data!.docs[index].id);
+                        //   },
+                        //   icon: const Icon(Icons.delete, color: Colors.red),
+                        // ),
                       ],
                     ),
                   ),
-                  Divider(), // Add a divider line between ListTiles
+                  const Divider(),
                 ],
               );
             },
@@ -102,12 +97,10 @@ class _MyAdsState extends State<MyAds> {
     );
   }
 
-  // Function to delete the ad from Firestore
   Future<void> _deleteAd(String adId) async {
     try {
       await FirebaseFirestore.instance.collection('ads').doc(adId).delete();
 
-      // Show a toast message
       Fluttertoast.showToast(
         msg: 'Ad deleted successfully',
         gravity: ToastGravity.BOTTOM,
@@ -115,10 +108,10 @@ class _MyAdsState extends State<MyAds> {
         textColor: Colors.white,
       );
     } catch (e) {
-      // Handle errors here
-      print('Error deleting ad: $e');
+      if (kDebugMode) {
+        print('Error deleting ad: $e');
+      }
 
-      // Show an error toast message
       Fluttertoast.showToast(
         msg: 'Error deleting ad',
         gravity: ToastGravity.BOTTOM,
@@ -129,28 +122,241 @@ class _MyAdsState extends State<MyAds> {
   }
 }
 
-// Add a new stateful widget for the EditAdPage
 class EditAdPage extends StatefulWidget {
   final Map<String, dynamic> ad;
+  final String adId;
 
-  const EditAdPage({Key? key, required this.ad}) : super(key: key);
+  const EditAdPage({Key? key, required this.ad, required this.adId})
+      : super(key: key);
 
   @override
   State<EditAdPage> createState() => _EditAdPageState();
 }
 
 class _EditAdPageState extends State<EditAdPage> {
-  // You can implement the editing functionality here
+  TextEditingController contactController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController locationStateController = TextEditingController();
+  TextEditingController opController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+
+  String selectedCategory = '';
+  final List<String> categories = [
+    'Property',
+    'Events',
+    'IT Training',
+    'Rentals',
+    'Services',
+    'travel',
+    'buySell',
+    'homeservices',
+    'lawyer',
+    'roommates'
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize controllers with existing ad data
+    contactController.text = widget.ad['contact'];
+    descriptionController.text = widget.ad['description'];
+    locationStateController.text = widget.ad['location_state'];
+    priceController.text = widget.ad['price'];
+    titleController.text = widget.ad['title'];
+
+    // Set the initial value for the dropdown
+    selectedCategory = categories.contains(widget.ad['category'])
+        ? widget.ad['category']
+        : categories.first;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Ad'),
+        title: const Text('Edit your Ad'),
       ),
-      body: Center(
-        child: Text('Edit your ad here'),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              DropdownButtonFormField<String>(
+                value: selectedCategory,
+                onChanged: (value) {
+                  setState(() {
+                    selectedCategory = value!;
+                  });
+                },
+                items: categories.map((category) {
+                  return DropdownMenuItem<String>(
+                    value: category,
+                    child: Text(category),
+                  );
+                }).toList(),
+                decoration: const InputDecoration(labelText: 'Category'),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: contactController,
+                decoration: const InputDecoration(labelText: 'Contact'),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: descriptionController,
+                decoration: const InputDecoration(labelText: 'Description'),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: locationStateController,
+                decoration: const InputDecoration(labelText: 'Location State'),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: priceController,
+                decoration: const InputDecoration(labelText: 'Price'),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: titleController,
+                decoration: const InputDecoration(labelText: 'Title'),
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 150,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: widget.ad['images'].length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Image.network(
+                            widget.ad['images'][index],
+                            fit: BoxFit.fitWidth,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
+              const SizedBox(height: 16),
+              DefaultButton(
+                text: "Save Changes",
+                press: () {
+                  _updateAd();
+                },
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent,
+                ),
+                onPressed: () {
+                  _showDeleteConfirmationDialog();
+                },
+                child: Text("Delete this Ad"),
+              ),
+            ],
+          ),
+        ),
       ),
     );
+  }
+
+  void _showDeleteConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Delete Ad"),
+          content: Text("Are you sure you want to delete this ad?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _deleteAd();
+              },
+              child: Text("Delete"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _deleteAd() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('ads')
+          .doc(widget.adId)
+          .delete();
+
+      Fluttertoast.showToast(
+        msg: 'Ad deleted successfully',
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+      );
+
+      Navigator.pop(context);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error deleting ad: $e');
+      }
+
+      Fluttertoast.showToast(
+        msg: 'Error deleting ad',
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      Navigator.pop(context);
+    }
+  }
+
+  Future<void> _updateAd() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('ads')
+          .doc(widget.adId)
+          .update({
+        'category': selectedCategory,
+        'contact': contactController.text,
+        'description': descriptionController.text,
+        'location_state': locationStateController.text,
+        'price': priceController.text,
+        'title': titleController.text,
+      });
+
+      Fluttertoast.showToast(
+        msg: 'Ad updated successfully',
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error updating ad: $e');
+      }
+
+      Fluttertoast.showToast(
+        msg: 'Error updating ad',
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      Navigator.pop(context);
+    }
   }
 }
