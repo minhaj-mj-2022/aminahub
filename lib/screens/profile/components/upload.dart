@@ -1,15 +1,11 @@
+import 'package:aminahub/imports.dart';
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 
 class UploadForm extends StatefulWidget {
   static const String routeName = '/upload_form';
 
-  const UploadForm({super.key});
+  const UploadForm({Key? key}) : super(key: key);
 
   @override
   _UploadFormState createState() => _UploadFormState();
@@ -23,9 +19,20 @@ class _UploadFormState extends State<UploadForm> {
   final TextEditingController contactController = TextEditingController();
 
   String? selectedCategory;
-  final List<String> categories = ['Property', 'Events', 'IT Training'];
+  final List<String> categories = [
+    'Property',
+    'Events',
+    'IT Training',
+    'Rentals',
+    'Services',
+    'travel',
+    'buySell',
+    'homeservices',
+    'lawyer',
+    'roommates'
+  ];
   List<String> imageUrls = [];
-  File? selectedImage;
+  List<File> selectedImages = [];
 
   String generateUuid() {
     var uuid = const Uuid();
@@ -34,50 +41,50 @@ class _UploadFormState extends State<UploadForm> {
 
   double _uploadProgress = 0.0;
 
-  Future<void> _pickImage() async {
-    XFile? pickedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future<void> _pickImages() async {
+    List<XFile>? pickedImages = await ImagePicker().pickMultiImage();
 
     setState(() {
-      if (pickedImage != null) {
-        selectedImage = File(pickedImage.path);
+      if (pickedImages.isNotEmpty) {
+        selectedImages = pickedImages.map((pickedImage) {
+          return File(pickedImage.path);
+        }).toList();
       } else {
         if (kDebugMode) {
-          print('No image selected.');
+          print('No images selected.');
         }
       }
     });
   }
 
-  Future<void> _uploadImage(String adsId) async {
-    if (selectedImage == null) {
-      return;
-    }
+  Future<void> _uploadImages(String adsId) async {
+    for (File selectedImage in selectedImages) {
+      final String fileExtension =
+          selectedImage.path.split('.').last.toLowerCase();
 
-    final String fileExtension =
-        selectedImage!.path.split('.').last.toLowerCase();
+      final storageReference = FirebaseStorage.instance
+          .ref()
+          .child('images/$adsId/${generateUuid()}.$fileExtension');
 
-    final storageReference =
-        FirebaseStorage.instance.ref().child('images/$adsId.$fileExtension');
+      final File imageFile = File(selectedImage.path);
 
-    final File imageFile = File(selectedImage!.path);
+      final UploadTask uploadTask = storageReference.putFile(
+        imageFile,
+        SettableMetadata(contentType: 'image/$fileExtension'),
+      );
 
-    final UploadTask uploadTask = storageReference.putFile(
-      imageFile,
-      SettableMetadata(contentType: 'image/$fileExtension'),
-    );
-
-    uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
-      double progress = snapshot.bytesTransferred / snapshot.totalBytes;
-      setState(() {
-        _uploadProgress = progress;
+      uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
+        double progress = snapshot.bytesTransferred / snapshot.totalBytes;
+        setState(() {
+          _uploadProgress = progress;
+        });
       });
-    });
 
-    await uploadTask;
+      await uploadTask;
 
-    final String downloadURL = await storageReference.getDownloadURL();
-    imageUrls.add(downloadURL);
+      final String downloadURL = await storageReference.getDownloadURL();
+      imageUrls.add(downloadURL);
+    }
   }
 
   void uploadData() async {
@@ -90,7 +97,7 @@ class _UploadFormState extends State<UploadForm> {
       String locationState = locationStateController.text;
 
       if (selectedCategory != null && selectedCategory!.isNotEmpty) {
-        await _uploadImage(adsId);
+        await _uploadImages(adsId);
 
         await FirebaseFirestore.instance.collection('ads').add({
           'ads_id': adsId,
@@ -105,20 +112,16 @@ class _UploadFormState extends State<UploadForm> {
 
         imageUrls = [];
         setState(() {
-          _uploadProgress = 0.0; // Reset progress after successful upload
+          _uploadProgress = 0.0;
         });
 
-        // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Upload successful'),
           ),
         );
-
-        // Wait for 3 seconds and then reload the screen
         await Future.delayed(Duration(seconds: 3));
 
-        // Reload the screen
         Navigator.of(context).pushReplacementNamed(UploadForm.routeName);
       } else {
         if (kDebugMode) {
@@ -201,17 +204,21 @@ class _UploadFormState extends State<UploadForm> {
               ),
               Center(
                 child: IconButton(
-                  iconSize: 150.0,
+                  iconSize: 50.0,
                   onPressed: () {
-                    _pickImage();
+                    _pickImages();
                   },
                   icon: const Icon(Icons.image),
                 ),
               ),
-              selectedImage != null
-                  ? Image.file(
-                      File(selectedImage!.path),
-                      height: 200.0,
+              selectedImages.isNotEmpty
+                  ? Column(
+                      children: selectedImages.map((selectedImage) {
+                        return Image.file(
+                          selectedImage,
+                          height: 200.0,
+                        );
+                      }).toList(),
                     )
                   : const SizedBox.shrink(),
               const SizedBox(height: 15.0),

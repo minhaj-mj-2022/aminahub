@@ -1,5 +1,6 @@
 import 'package:aminahub/screens/help_center.dart';
 import 'package:aminahub/screens/profile/components/my_account.dart';
+import 'package:aminahub/screens/profile/components/my_ads.dart';
 import 'package:aminahub/screens/profile/components/profile_menu.dart';
 import 'package:aminahub/screens/profile/components/upload.dart';
 import 'package:aminahub/screens/sign_in/sign_in_screen.dart';
@@ -36,6 +37,11 @@ class Body extends StatelessWidget {
             text: "Upload Ads",
             icon: "assets/icons/upload.svg",
             press: () => {Navigator.pushNamed(context, UploadForm.routeName)},
+          ),
+          ProfileMenu(
+            text: "My ads",
+            icon: "assets/icons/my_ads.svg",
+            press: () => {Navigator.pushNamed(context, MyAds.routeName)},
           ),
           ProfileMenu(
             text: "Help Center",

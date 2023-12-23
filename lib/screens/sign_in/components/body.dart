@@ -1,7 +1,6 @@
 import 'package:aminahub/screens/sign_in/components/sign_form.dart';
 import 'package:flutter/material.dart';
 import '../../../components/no_acc_text.dart';
-import '../../../components/social_card.dart';
 import '../../../size_config.dart';
 
 class myBody extends StatelessWidget {

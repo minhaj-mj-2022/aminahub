@@ -2,7 +2,6 @@ import 'package:aminahub/size_config.dart';
 
 import '../../imports.dart';
 
-
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/home";
 
@@ -29,9 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
       permission = await Geolocator.requestPermission();
     }
 
-    if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
-      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      List<Placemark> placeMarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      List<Placemark> placeMarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
 
       if (placeMarks.isNotEmpty) {
         Placemark placeMark = placeMarks[0];
@@ -63,9 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         body: HomeBody(),
-        bottomNavigationBar: const CustomBottomNavBar(selectedMenu: MenuState.home),
+        bottomNavigationBar:
+            const CustomBottomNavBar(selectedMenu: MenuState.home),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color(0xFF80D0D9),
+          backgroundColor: const Color(0xfff5e3cc4),
           onPressed: () {
             Navigator.push(
               context,
@@ -82,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: const Icon(
             Icons.location_on,
-            color: Color(0XFFFAAB37),
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),
       ),
