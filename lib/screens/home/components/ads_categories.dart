@@ -24,7 +24,7 @@ class AdsCategories extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: 20), // Adjust the padding as needed
+              horizontal: 0), // Adjust the padding as needed
           child: SectionTitle(
               title: "Ads Category",
               press: () {

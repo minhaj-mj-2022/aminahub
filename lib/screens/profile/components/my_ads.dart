@@ -2,7 +2,6 @@ import 'package:aminahub/imports.dart';
 
 class MyAds extends StatefulWidget {
   static const String routeName = '/MyAds';
-
   const MyAds({super.key});
 
   @override
@@ -10,6 +9,7 @@ class MyAds extends StatefulWidget {
 }
 
 class _MyAdsState extends State<MyAds> {
+  String? originalPoster = FirebaseAuth.instance.currentUser!.email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,7 @@ class _MyAdsState extends State<MyAds> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('ads')
-            .where('op', isEqualTo: 'minhaj1@gmail.com') // Filter ads by user
+            .where('op', isEqualTo: originalPoster) // Filter ads by user
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {

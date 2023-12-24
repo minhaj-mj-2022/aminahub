@@ -224,7 +224,7 @@ class _SignUpFormState extends State<SignUpForm> {
     return TextFormField(
       onSaved: (newValue) => name = newValue,
       decoration: const InputDecoration(
-        labelText: "Last Name",
+        labelText: "Full Name",
         hintText: "Enter your name",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),

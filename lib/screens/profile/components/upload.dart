@@ -18,6 +18,7 @@ class _UploadFormState extends State<UploadForm> {
   final TextEditingController locationStateController = TextEditingController();
   final TextEditingController contactController = TextEditingController();
 
+  String? originalPoster = FirebaseAuth.instance.currentUser!.email;
   String? selectedCategory;
   final List<String> categories = [
     'Property',
@@ -108,6 +109,7 @@ class _UploadFormState extends State<UploadForm> {
           'description': descriptions,
           'location_state': locationState,
           'price': price,
+          'op': originalPoster,
         });
 
         imageUrls = [];

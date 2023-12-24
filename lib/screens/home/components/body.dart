@@ -25,7 +25,7 @@ class _HomeBodyState extends State<HomeBody> {
             const AdsCategories(),
             SizedBox(height: getProportionateScreenWidth(20)),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Special for you",
                   press: () {
@@ -40,7 +40,7 @@ class _HomeBodyState extends State<HomeBody> {
             const SpecialOffers(),
             SizedBox(height: getProportionateScreenWidth(20)),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Popular Products",
                   press: () {
@@ -71,7 +71,7 @@ class _HomeBodyState extends State<HomeBody> {
             ),
             SizedBox(height: getProportionateScreenWidth(15)),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Best Deals",
                   press: () {
@@ -101,7 +101,7 @@ class _HomeBodyState extends State<HomeBody> {
               },
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "IT Training",
                   press: () {
@@ -132,7 +132,7 @@ class _HomeBodyState extends State<HomeBody> {
             ),
             SizedBox(height: getProportionateScreenWidth(10)),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Rentals",
                   press: () {
@@ -162,7 +162,7 @@ class _HomeBodyState extends State<HomeBody> {
             ),
             SizedBox(height: getProportionateScreenWidth(10)),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Services",
                   press: () {
@@ -191,7 +191,7 @@ class _HomeBodyState extends State<HomeBody> {
               },
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Property",
                   press: () {
@@ -221,7 +221,7 @@ class _HomeBodyState extends State<HomeBody> {
               },
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Events",
                   press: () {
@@ -251,7 +251,7 @@ class _HomeBodyState extends State<HomeBody> {
               },
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "buySell",
                   press: () {
@@ -283,7 +283,7 @@ class _HomeBodyState extends State<HomeBody> {
 
             //---------------------------
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Travel",
                   press: () {
@@ -315,7 +315,7 @@ class _HomeBodyState extends State<HomeBody> {
 
             //-------------------
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Lawyer",
                   press: () {
@@ -347,7 +347,7 @@ class _HomeBodyState extends State<HomeBody> {
 
             //----------------------------------
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Roommates",
                   press: () {
@@ -379,7 +379,7 @@ class _HomeBodyState extends State<HomeBody> {
 
             //---------------------
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
                   title: "Homeservices",
                   press: () {
