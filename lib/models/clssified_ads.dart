@@ -79,7 +79,17 @@ class ProductService {
   }
 
   Future<List<Product>> getBookmarks() async {
-    String? currentUserEmail = FirebaseAuth.instance.currentUser!.email;
+    String? currentUserEmail;
+
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      currentUserEmail = user.email;
+    } else {
+      // Handle the case when the user is not logged in.
+      // You might want to set currentUserEmail to a default value or handle it accordingly.
+    }
+
+// Now you can use currentUserEmail safely without the null check operator.
 
     QuerySnapshot<Object?> querySnapshot = await FirebaseFirestore.instance
         .collection("Bookmarks")

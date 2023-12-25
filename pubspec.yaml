@@ -79,6 +79,7 @@ flutter:
     - assets/images/
     - assets/icons/
 
+
 flutter_icons:
   android: true
   image_path: "assets/amina_launcher_icon.png"

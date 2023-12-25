@@ -54,7 +54,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.product.title),
+        title: Text(
+          widget.product.title,
+          style: TextStyle(fontSize: 18),
+        ),
         actions: [
           StreamBuilder(
             stream: FirebaseFirestore.instance
@@ -66,15 +69,29 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               bool isBookmarked = snapshot.data?.docs.isNotEmpty ?? false;
-              return IconButton(
-                icon: Icon(
-                  isBookmarked ? Icons.favorite : Icons.favorite_border,
-                  color: Colors.red,
-                  size: 40,
-                ),
-                onPressed: () {
-                  isBookmarked ? removeFromBookmark() : addToBookmark();
-                },
+              return Row(
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      isBookmarked
+                          ? Icons.bookmark
+                          : Icons.bookmark_add_outlined,
+                      color: Colors.red,
+                      size: 35,
+                    ),
+                    onPressed: () {
+                      isBookmarked ? removeFromBookmark() : addToBookmark();
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.share,
+                      color: Colors.blue,
+                      size: 35,
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
               );
             },
           ),

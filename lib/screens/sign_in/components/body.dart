@@ -1,3 +1,4 @@
+import 'package:aminahub/components/social_card.dart';
 import 'package:aminahub/screens/sign_in/components/sign_form.dart';
 import 'package:flutter/material.dart';
 import '../../../components/no_acc_text.dart';
@@ -13,7 +14,7 @@ class myBody extends StatelessWidget {
         width: double.infinity,
         child: Padding(
           padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -32,17 +33,25 @@ class myBody extends StatelessWidget {
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 const SignForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     SocalCard(
-                //       icon: "assets/icons/google-icon.svg",
-                //       press: () {},
-                //     ),
-                //   ],
-                // ),
-                SizedBox(height: getProportionateScreenHeight(40)),
+                SizedBox(height: SizeConfig.screenHeight * 0.03),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SocalCard(
+                      icon: "assets/icons/google-icon.svg",
+                      press: () {},
+                    ),
+                    SocalCard(
+                      icon: "assets/icons/facebook-2.svg",
+                      press: () {},
+                    ),
+                    SocalCard(
+                      icon: "assets/icons/twitter.svg",
+                      press: () {},
+                    ),
+                  ],
+                ),
+                SizedBox(height: getProportionateScreenHeight(30)),
                 const NoAccountText(),
               ],
             ),

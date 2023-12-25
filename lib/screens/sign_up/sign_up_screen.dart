@@ -1,4 +1,4 @@
-
+import 'package:aminahub/components/social_card.dart';
 import 'package:flutter/material.dart';
 import '../../constants.dart';
 import '../../size_config.dart';
@@ -31,24 +31,24 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.08),
                   SignUpForm(),
-                  SizedBox(height: SizeConfig.screenHeight * 0.08),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     SocalCard(
-                  //       icon: "assets/icons/google-icon.svg",
-                  //       press: () {},
-                  //     ),
-                  //     SocalCard(
-                  //       icon: "assets/icons/facebook-2.svg",
-                  //       press: () {},
-                  //     ),
-                  //     SocalCard(
-                  //       icon: "assets/icons/twitter.svg",
-                  //       press: () {},
-                  //     ),
-                  //   ],
-                  // ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SocalCard(
+                        icon: "assets/icons/google-icon.svg",
+                        press: () {},
+                      ),
+                      SocalCard(
+                        icon: "assets/icons/facebook-2.svg",
+                        press: () {},
+                      ),
+                      SocalCard(
+                        icon: "assets/icons/twitter.svg",
+                        press: () {},
+                      ),
+                    ],
+                  ),
                   SizedBox(height: getProportionateScreenHeight(20)),
                   Text(
                     'By continuing your confirm that you agree \nwith our Term and Condition',
