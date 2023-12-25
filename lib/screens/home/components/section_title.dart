@@ -18,14 +18,14 @@ class SectionTitle extends StatelessWidget {
         Text(
           "   $title",
           style: TextStyle(
-              fontSize: getProportionateScreenWidth(16),
+              fontSize: getProportionateScreenWidth(18),
               color: Colors.black,
               fontWeight: FontWeight.bold),
         ),
         GestureDetector(
           onTap: press,
           child: const Text(
-            "See More",
+            "See More    ",
             style: TextStyle(color: Color(0xFFFAAB37)),
           ),
         ),

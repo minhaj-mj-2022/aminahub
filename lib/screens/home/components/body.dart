@@ -100,6 +100,7 @@ class _HomeBodyState extends State<HomeBody> {
                 }
               },
             ),
+            SizedBox(height: getProportionateScreenWidth(10)),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
