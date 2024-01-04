@@ -1,4 +1,3 @@
-import 'package:aminahub/size_config.dart';
 import '../../../imports.dart';
 
 class HomeBody extends StatefulWidget {
@@ -9,6 +8,51 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
+  bool isLoadingShown = false;
+
+  FutureBuilder<List<Product>> _buildProductCarousal(
+      String category, String sectionTitle) {
+    return FutureBuilder<List<Product>>(
+      future: ProductService().getAdsByCategory(category),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          if (!isLoadingShown) {
+            isLoadingShown = true;
+            return const CircularProgressIndicator();
+          } else {
+            return const SizedBox.shrink();
+          }
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          List<Product> products = snapshot.data ?? [];
+          if (products.isEmpty) {
+            return const Text('');
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SectionTitle(
+                title: sectionTitle,
+                press: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          CategoryDetails(barTitle: sectionTitle),
+                    ),
+                  );
+                },
+              ),
+              ProductCarousal(products),
+              SizedBox(height: getProportionateScreenWidth(10)),
+            ],
+          );
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,392 +67,38 @@ class _HomeBodyState extends State<HomeBody> {
             const HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(15)),
             const AdsCategories(),
+
             SizedBox(height: getProportionateScreenWidth(20)),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
               child: SectionTitle(
-                  title: "Special for you",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              CategoryDetails(barTitle: 'Special For you')),
-                    );
-                  }),
+                title: "Special for you",
+                press: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const CategoryDetails(barTitle: 'Special For you'),
+                    ),
+                  );
+                },
+              ),
             ),
             const SpecialOffers(),
             SizedBox(height: getProportionateScreenWidth(20)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "Popular Products",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              CategoryDetails(barTitle: 'Popular Products')),
-                    );
-                  }),
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getProducts(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
-            SizedBox(height: getProportionateScreenWidth(15)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "Best Deals",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              CategoryDetails(barTitle: 'Best Deals')),
-                    );
-                  }),
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getProducts(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "IT Training",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              CategoryDetails(barTitle: 'IT Training')),
-                    );
-                  }),
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getAdsByCategory("IT Training"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "Rentals",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const CategoryDetails(barTitle: 'Rentals')),
-                    );
-                  }),
-            ),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getAdsByCategory("Rentals"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "Services",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const CategoryDetails(barTitle: 'Services')),
-                    );
-                  }),
-            ),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getAdsByCategory("Services"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "Property",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              CategoryDetails(barTitle: 'Property')),
-                    );
-                  }),
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getAdsByCategory("Property"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "Events",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const CategoryDetails(barTitle: 'Events')),
-                    );
-                  }),
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getAdsByCategory("Events"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "buySell",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const CategoryDetails(barTitle: 'buySell')),
-                    );
-                  }),
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getAdsByCategory("buySell"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
 
-            //---------------------------
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "Travel",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const CategoryDetails(barTitle: 'travel')),
-                    );
-                  }),
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getAdsByCategory("travel"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
-
-            //-------------------
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "Lawyer",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const CategoryDetails(barTitle: 'lawyer')),
-                    );
-                  }),
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getAdsByCategory("lawyer"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
-
-            //----------------------------------
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "Roommates",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const CategoryDetails(barTitle: 'roommates')),
-                    );
-                  }),
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getAdsByCategory("roommates"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
-
-            //---------------------
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SectionTitle(
-                  title: "Homeservices",
-                  press: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const CategoryDetails(barTitle: 'homeservices')),
-                    );
-                  }),
-            ),
-            SizedBox(height: getProportionateScreenWidth(10)),
-            FutureBuilder<List<Product>>(
-              future: ProductService().getAdsByCategory("homeservices"),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Product> products = snapshot.data ?? [];
-                  if (products.isEmpty) {
-                    return const Text('No ads to show!');
-                  }
-                  return ProductCarousal(products);
-                }
-              },
-            ),
+            //_buildProductCarousal("Popular Products", "Popular Products"),
+            //_buildProductCarousal("Best Deals", "Best Deals"),
+            _buildProductCarousal("IT Training", "IT Training"),
+            _buildProductCarousal("Rentals", "Rentals"),
+            _buildProductCarousal("Services", "Services"),
+            _buildProductCarousal("Property", "Property"),
+            _buildProductCarousal("Events", "Events"),
+            _buildProductCarousal("buySell", "Buy/Sell"),
+            _buildProductCarousal("travel", "Travel"),
+            _buildProductCarousal("lawyer", "Lawyer"),
+            _buildProductCarousal("roommates", "Roommates"),
+            _buildProductCarousal("homeservices", "Home Services"),
           ],
         ),
       ),

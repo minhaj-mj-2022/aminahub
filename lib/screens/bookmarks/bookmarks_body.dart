@@ -29,13 +29,14 @@ class BookmarkBody extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(height: getProportionateScreenWidth(10)),
-          Image.asset(
-            "assets/images/aminahub_backup.png",
-            height: getProportionateScreenHeight(20),
+          Center(
+            child: Image.asset(
+              "assets/images/aminahub_backup.png",
+              height: getProportionateScreenHeight(20),
+            ),
           ),
           SizedBox(
-            height: getProportionateScreenHeight(10),
+            height: getProportionateScreenHeight(20),
           ),
           FutureBuilder<List<Product>>(
             future: ProductService().getBookmarks(),

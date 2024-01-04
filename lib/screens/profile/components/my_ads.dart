@@ -10,6 +10,8 @@ class MyAds extends StatefulWidget {
 
 class _MyAdsState extends State<MyAds> {
   String? originalPoster = FirebaseAuth.instance.currentUser!.email;
+  String adminEmail = 'minhaj.mj.2022@gmail.com'; 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,10 +19,7 @@ class _MyAdsState extends State<MyAds> {
         title: const Text('My Ads'),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('ads')
-            .where('op', isEqualTo: originalPoster) // Filter ads by user
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection('ads').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -40,56 +39,116 @@ class _MyAdsState extends State<MyAds> {
               var ad =
                   snapshot.data!.docs[index].data() as Map<String, dynamic>;
 
-              String imageUrl = ad['images'][0] ?? 'NA';
-              String title = ad['title'] ?? 'NA';
-              String price = ad['price'] ?? 'NA';
+              // Check if the current user is the admin
+              if (originalPoster == adminEmail ||
+                  FirebaseAuth.instance.currentUser!.email == adminEmail) {
+                // Show all ads if the current user is the admin
+                String imageUrl = ad['images'][0] ?? 'NA';
+                String title = ad['title'] ?? 'NA';
+                String price = ad['price'] ?? 'NA';
 
-              return Column(
-                children: [
-                  ListTile(
-                    title: Text(title),
-                    subtitle: Text(
-                      price,
-                      style: const TextStyle(color: Colors.green),
-                    ),
-                    leading: SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Image.network(
-                        imageUrl,
-                        fit: BoxFit.fitWidth,
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Text(title),
+                      subtitle: Text(
+                        price,
+                        style: const TextStyle(color: Colors.green),
+                      ),
+                      leading: SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: Image.network(
+                          imageUrl,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditAdPage(
+                                    ad: ad,
+                                    adId: snapshot.data!.docs[index].id,
+                                  ),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.edit, color: Colors.blue),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              _deleteAd(snapshot.data!.docs[index].id);
+                            },
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                          ),
+                        ],
                       ),
                     ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditAdPage(
-                                  ad: ad,
-                                  adId: snapshot.data!.docs[index].id,
-                                ),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.edit, color: Colors.blue),
+                    const Divider(),
+                  ],
+                );
+              } else {
+                // Show ads only for the original poster
+                if (ad['op'] == originalPoster) {
+                  String imageUrl = ad['images'][0] ?? 'NA';
+                  String title = ad['title'] ?? 'NA';
+                  String price = ad['price'] ?? 'NA';
+
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(title),
+                        subtitle: Text(
+                          price,
+                          style: const TextStyle(color: Colors.green),
                         ),
-                        // // const SizedBox(width: 8),
-                        // IconButton(
-                        //   onPressed: () {
-                        //     _deleteAd(snapshot.data!.docs[index].id);
-                        //   },
-                        //   icon: const Icon(Icons.delete, color: Colors.red),
-                        // ),
-                      ],
-                    ),
-                  ),
-                  const Divider(),
-                ],
-              );
+                        leading: SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: Image.network(
+                            imageUrl,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EditAdPage(
+                                      ad: ad,
+                                      adId: snapshot.data!.docs[index].id,
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.edit, color: Colors.blue),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                _deleteAd(snapshot.data!.docs[index].id);
+                              },
+                              icon: const Icon(Icons.delete, color: Colors.red),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(),
+                    ],
+                  );
+                } else {
+                  // Return an empty container if the ad doesn't belong to the original poster
+                  return Container();
+                }
+              }
             },
           );
         },
@@ -97,28 +156,30 @@ class _MyAdsState extends State<MyAds> {
     );
   }
 
-  Future<void> _deleteAd(String adId) async {
-    try {
-      await FirebaseFirestore.instance.collection('ads').doc(adId).delete();
+  // Rest of the code remains the same...
+}
 
-      Fluttertoast.showToast(
-        msg: 'Ad deleted successfully',
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-      );
-    } catch (e) {
-      if (kDebugMode) {
-        print('Error deleting ad: $e');
-      }
+Future<void> _deleteAd(String adId) async {
+  try {
+    await FirebaseFirestore.instance.collection('ads').doc(adId).delete();
 
-      Fluttertoast.showToast(
-        msg: 'Error deleting ad',
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-      );
+    Fluttertoast.showToast(
+      msg: 'Ad deleted successfully',
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+    );
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error deleting ad: $e');
     }
+
+    Fluttertoast.showToast(
+      msg: 'Error deleting ad',
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+    );
   }
 }
 

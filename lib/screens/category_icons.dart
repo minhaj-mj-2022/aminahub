@@ -2,20 +2,11 @@ import '../../imports.dart';
 
 class CategoryIcons extends StatelessWidget {
   final String? barTitle;
-  var a;
 
   CategoryIcons({
     super.key,
     required this.barTitle,
-    this.a
   });
-
-  String aa(){
-    a = barTitle;
-    print(a);
-    print("event");
-    return a;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +34,15 @@ class CategoryIcons extends StatelessWidget {
             "assets/images/aminahub_backup.png",
             height: getProportionateScreenHeight(20),
           ),
-          SizedBox(height: getProportionateScreenHeight(10),),
+          SizedBox(
+            height: getProportionateScreenHeight(10),
+          ),
           FutureBuilder<List<Product>>(
-            //String 
+            //String
             future: ProductService().getAdsByCategory(barTitle),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();  
+                return const CircularProgressIndicator();
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
@@ -65,5 +58,3 @@ class CategoryIcons extends StatelessWidget {
     );
   }
 }
-
-

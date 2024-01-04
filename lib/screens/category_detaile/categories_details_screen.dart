@@ -1,4 +1,5 @@
 import '../../imports.dart';
+// ... (import statements)
 
 class CategoryDetails extends StatelessWidget {
   final String barTitle;
@@ -29,17 +30,20 @@ class CategoryDetails extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(height: getProportionateScreenWidth(10)),
-          Image.asset(
-            "assets/images/aminahub_backup.png",
+          Center(
+            child: Image.asset(
+              "assets/images/aminahub_backup.png",
+              height: getProportionateScreenHeight(20),
+            ),
+          ),
+          SizedBox(
             height: getProportionateScreenHeight(20),
           ),
-          SizedBox(height: getProportionateScreenHeight(10),),
           FutureBuilder<List<Product>>(
-            future: ProductService().getProducts(),
+            future: ProductService().getAdsByCategory(barTitle),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();  
+                return const CircularProgressIndicator();
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
@@ -55,5 +59,3 @@ class CategoryDetails extends StatelessWidget {
     );
   }
 }
-
-
