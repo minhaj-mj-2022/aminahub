@@ -12,8 +12,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-    @override
-    void didChangeDependencies() {
+  @override
+  void didChangeDependencies() {
     super.didChangeDependencies();
     SizeConfig().init(context);
   }
@@ -24,7 +24,7 @@ class _SignInScreenState extends State<SignInScreen> {
       appBar: AppBar(
         title: const Text("Sign In"),
       ),
-      body: myBody(),
+      body: MyBody(),
     );
   }
 }

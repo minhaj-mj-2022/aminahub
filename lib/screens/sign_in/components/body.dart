@@ -1,11 +1,53 @@
-import 'package:aminahub/components/social_card.dart';
+import 'package:aminahub/components/no_acc_text.dart';
+import 'package:aminahub/imports.dart';
 import 'package:aminahub/screens/sign_in/components/sign_form.dart';
-import 'package:flutter/material.dart';
-import '../../../components/no_acc_text.dart';
-import '../../../size_config.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class myBody extends StatelessWidget {
-  const myBody({super.key});
+class MyBody extends StatefulWidget {
+  MyBody({Key? key}) : super(key: key);
+
+  @override
+  State<MyBody> createState() => _MyBodyState();
+}
+
+class _MyBodyState extends State<MyBody> {
+  bool _isLoading = false;
+
+  Future<void> _handleGoogleSignIn(BuildContext context) async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      final UserCredential authResult =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final User? user = authResult.user;
+
+      setState(() {
+        _isLoading = false;
+      });
+
+      // Redirect to the home screen
+      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error during Google Sign In: $e");
+      }
+
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +79,9 @@ class myBody extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SocalCard(
-                      icon: "assets/icons/google-icon.svg",
-                      press: () {},
-                    ),
-                    SocalCard(
-                      icon: "assets/icons/facebook-2.svg",
-                      press: () {},
-                    ),
-                    SocalCard(
-                      icon: "assets/icons/twitter.svg",
-                      press: () {},
+                    ElevatedButton(
+                      onPressed: () => _handleGoogleSignIn(context),
+                      child: const Text("Sign In with Google"),
                     ),
                   ],
                 ),

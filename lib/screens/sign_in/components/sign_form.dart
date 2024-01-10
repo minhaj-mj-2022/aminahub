@@ -57,11 +57,6 @@ class _SignFormState extends State<SignForm> {
     FirebaseAuth.instance
     .authStateChanges()
     .listen((User? user) {
-      // if (user == null) {
-      //   print('User is currently signed out!');
-      // } else {
-      //   print('User is signed in!');
-      // }
     });
     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: emailAddress!,
@@ -69,7 +64,6 @@ class _SignFormState extends State<SignForm> {
     );
     Navigator.pushNamed(context, HomeScreen.routeName);
   } catch (e) {
-  // Handle any exceptions or errors that occur
   print(e);
 
   // Show the toast message
@@ -125,13 +119,8 @@ class _SignFormState extends State<SignForm> {
           press: () async {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              // Show CircularProgressIndicator
               showLoadingDialog();
-              
-              // Delay execution for 3 seconds
-              await Future.delayed(Duration(seconds: 3));
-
-              // Hide CircularProgressIndicator
+                            await Future.delayed(Duration(seconds: 3));
               Navigator.of(context, rootNavigator: true).pop();
 
               KeyboardUtil.hideKeyboard(context);
@@ -170,7 +159,6 @@ class _SignFormState extends State<SignForm> {
         labelText: "Password",
         hintText: "Enter your password",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
     );
   }

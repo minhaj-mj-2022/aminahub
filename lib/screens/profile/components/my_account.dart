@@ -1,24 +1,32 @@
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class MyAccount extends StatelessWidget {
+class MyAccount extends StatefulWidget {
   static const String routeName = "/MyAccount";
 
-  MyAccount({super.key});
-  final String? email = FirebaseAuth.instance.currentUser!.email;
+  @override
+  _MyAccountState createState() => _MyAccountState();
+}
+
+class _MyAccountState extends State<MyAccount> {
+  late String email;
+
+  @override
+  void initState() {
+    super.initState();
+    email = FirebaseAuth.instance.currentUser!.email!;
+  }
 
   Future<String?> getUserName() async {
     try {
-      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(email) 
-          .get();
+      DocumentSnapshot userSnapshot =
+          await FirebaseFirestore.instance.collection('users').doc(email).get();
 
       if (userSnapshot.exists) {
         return userSnapshot.get('name');
       } else {
-        return null; 
+        return null;
       }
     } catch (e) {
       print("Error fetching user name: $e");
@@ -38,18 +46,25 @@ class MyAccount extends StatelessWidget {
           future: getUserName(),
           builder: (context, AsyncSnapshot<String?> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             } else if (snapshot.hasError) {
-              return Text("Error: ${snapshot.error}");
+              return Center(
+                child: Text("Error: ${snapshot.error}"),
+              );
             } else if (snapshot.hasData) {
-              return ListView(
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildAccountDetail("Email Address", email),
                   _buildAccountDetail("Name", snapshot.data),
                 ],
               );
             } else {
-              return const Text("User not found"); 
+              return const Center(
+                child: Text("User not found"),
+              );
             }
           },
         ),
@@ -65,7 +80,7 @@ class MyAccount extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -73,11 +88,10 @@ class MyAccount extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             value!,
-            style: const TextStyle(fontSize: 14),
+            style: TextStyle(fontSize: 14),
           ),
         ],
       ),
     );
   }
 }
-
