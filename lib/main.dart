@@ -15,8 +15,6 @@ Future<void> main() async {
             ? SplashScreen.routeName
             : SignInScreen.routeName,
   ));
-
-  //PlayGround
 }
 
 class MyApp extends StatelessWidget {
